@@ -1,4 +1,5 @@
-﻿using NerdStore.Core;
+﻿using NerdStore.Catalog.Domain.Validations;
+using NerdStore.Core;
 
 namespace NerdStore.Catalog.Domain
 {
@@ -36,17 +37,6 @@ namespace NerdStore.Catalog.Domain
 
     public class Product : Entity<ProductId>, IAggregateRoot
     {
-        public Product(ProductId id, ProductName name, Description description, bool active, Price price, CategoryId categoryId, DateTime registerDate, ImageHash image, Stock stockQuantity) : base(id)
-        {
-            Name = name;
-            Description = description;
-            Active = active;
-            Price = price;
-            CategoryId = categoryId;
-            RegisterDate = registerDate;
-            Image = image;
-        }
-
         public CategoryId CategoryId { get; set; }
         public ProductName Name { get; private set; }
         public Description Description { get; private set; }
@@ -56,6 +46,21 @@ namespace NerdStore.Catalog.Domain
         public ImageHash Image { get; private set; }
         public Stock StockQuantity { get; private set; }
         public Category Category { get; set; }
+        public Dimension Dimension { get; set; }
+
+        private static readonly ProductValidator _validator = new();
+
+        public Product(ProductId id, ProductName name, Description description, bool active, Price price, CategoryId categoryId, DateTime registerDate, ImageHash image, Stock stockQuantity, Dimension dimension) : base(id)
+        {
+            Name = name;
+            Description = description;
+            Active = active;
+            Price = price;
+            CategoryId = categoryId;
+            RegisterDate = registerDate;
+            Image = image;
+            Dimension = dimension;
+        }
 
         public void Activate() => Active = true;
 
@@ -86,7 +91,6 @@ namespace NerdStore.Catalog.Domain
         public void ReplenishStock(int quantity) => 
             StockQuantity = new Stock(StockQuantity.Value + quantity);
 
-        private static readonly ProductValidator _validator = new();
         public bool IsValid() =>
             _validator.Validate(this).IsValid;
     }

@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace NerdStore.Catalog.Domain
+namespace NerdStore.Catalog.Domain.Validations
 {
     public class ProductValidator : AbstractValidator<Product>
     {
@@ -34,6 +34,9 @@ namespace NerdStore.Catalog.Domain
             RuleFor(p => p.CategoryId)
                 .Must(x => x.Value != Guid.Empty)
                 .WithMessage("Category is required.");
+
+            RuleFor(p => p.Dimension)
+                .SetValidator(new DimensionValidator());
         }
     }
 }

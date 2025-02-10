@@ -17,8 +17,6 @@ namespace NerdStore.Catalog.Domain
         {
             if (string.IsNullOrWhiteSpace(value))
                 throw new ArgumentException("Product name cannot be empty.", nameof(value));
-            if (value.Length > 100)
-                throw new ArgumentException("Product name cannot exceed 100 characters.", nameof(value));
 
             Value = value;
         }
@@ -32,9 +30,6 @@ namespace NerdStore.Catalog.Domain
 
         public Description(string value)
         {
-            if (value.Length > 500)
-                throw new ArgumentException("Description cannot exceed 500 characters.", nameof(value));
-
             Value = value;
         }
 

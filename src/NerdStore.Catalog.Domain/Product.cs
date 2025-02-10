@@ -63,9 +63,7 @@ namespace NerdStore.Catalog.Domain
         public ImageHash(string value)
         {
             if (string.IsNullOrWhiteSpace(value))
-                throw new ArgumentException("Image URL cannot be empty.", nameof(value));
-            if (!Uri.TryCreate(value, UriKind.Absolute, out _))
-                throw new ArgumentException("Invalid URL format.", nameof(value));
+                throw new ArgumentException("Image Hash cannot be empty.", nameof(value));
 
             Value = value;
         }
@@ -90,15 +88,15 @@ namespace NerdStore.Catalog.Domain
 
     public class Product : Entity<ProductId>, IAggregateRoot
     {
-        public Product(ProductId id, ProductName name, Description description, bool active, Price value, DateTime registerDate, ImageHash image, Stock stockQuantity) : base(id)
+        public Product(ProductId id, ProductName name, Description description, bool active, Price value, CategoryId categoryId, DateTime registerDate, ImageHash image, Stock stockQuantity) : base(id)
         {
             Name = name ?? throw new ArgumentNullException(nameof(name));
             Description = description ?? throw new ArgumentNullException(nameof(description));
             Active = active;
             Value = value ?? throw new ArgumentNullException(nameof(value));
+            CategoryId = categoryId;
             RegisterDate = registerDate;
             Image = image ?? throw new ArgumentNullException(nameof(image));
-            StockQuantity = stockQuantity ?? throw new ArgumentNullException(nameof(stockQuantity));
         }
 
         public CategoryId CategoryId { get; set; }
@@ -110,5 +108,46 @@ namespace NerdStore.Catalog.Domain
         public ImageHash Image { get; private set; }
         public Stock StockQuantity { get; private set; }
         public Category Category { get; set; }
+
+        public void Activate() => Active = true;
+
+        public void Deactivate() => Active = false;
+
+        public void ChangeCategory(Category category)
+        {
+            Category = category;
+            CategoryId = category.Id;
+        }
+
+        public void ChagneDescription(string description)
+        {
+            Description = new Description(description);
+        }
+
+        public void DebitStock(int quantity)
+        {
+            if (quantity < 0)
+                quantity *= -1;
+
+            if (!HasStock(quantity))
+                throw new InvalidOperationException("Insufficient stock.");
+
+            StockQuantity = new Stock(StockQuantity.Value - quantity);
+        }
+
+        public bool HasStock(int quantity)
+        {
+            return StockQuantity.Value >= quantity;
+        }
+
+        public void ReplenishStock(int quantity)
+        {
+            StockQuantity = new Stock(StockQuantity.Value + quantity);
+        }
+
+        public bool IsValid()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

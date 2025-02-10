@@ -1,24 +1,23 @@
-﻿namespace NerdStore.Core
-{
-    public abstract class Entity
-    {
-        public Guid Id { get; set; }
+﻿using System.Security.Cryptography;
 
-        protected Entity()
+namespace NerdStore.Core
+{
+    public abstract class Entity<TId> where TId : notnull
+    {
+        protected Entity(TId id)
         {
-            Id = Guid.NewGuid();
+            Id = id ?? throw new ArgumentNullException(nameof(id));
         }
 
-        public override bool Equals(object? obj) =>
-            ReferenceEquals(this, obj) || (obj is Entity compareTo && Id.Equals(compareTo.Id));
+        public TId Id { get; }
 
-        public static bool operator ==(Entity a, Entity b) =>
+        public override bool Equals(object? obj) =>
+            ReferenceEquals(this, obj) || (obj is Entity<TId> other && Id.Equals(other.Id));
+
+        public override int GetHashCode() => Id.GetHashCode();
+        public static bool operator ==(Entity<TId>? a, Entity<TId>? b) =>
             ReferenceEquals(a, b) || (a is not null && b is not null && a.Equals(b));
 
-        public static bool operator !=(Entity a, Entity b) =>
-            !(a == b);
-
-        public override int GetHashCode() =>
-            (GetType().GetHashCode() * 907) + Id.GetHashCode();
+        public static bool operator !=(Entity<TId>? a, Entity<TId>? b) => !(a == b);
     }
 }

@@ -1,4 +1,6 @@
 ﻿using FluentValidation.Results;
+using NerdStore.Catalog.Domain.Entities;
+using NerdStore.Catalog.Domain.ValueObjects;
 using NerdStore.Core;
 
 namespace NerdStore.Catalog.Domain.Tests

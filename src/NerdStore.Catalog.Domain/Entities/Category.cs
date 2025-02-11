@@ -1,6 +1,6 @@
 ﻿using NerdStore.Core;
 
-namespace NerdStore.Catalog.Domain
+namespace NerdStore.Catalog.Domain.Entities
 {
     public readonly record struct CategoryId(Guid Value)
     {

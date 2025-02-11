@@ -1,8 +1,9 @@
 ﻿using FluentValidation.Results;
 using NerdStore.Catalog.Domain.Validations;
+using NerdStore.Catalog.Domain.ValueObjects;
 using NerdStore.Core;
 
-namespace NerdStore.Catalog.Domain
+namespace NerdStore.Catalog.Domain.Entities
 {
     public readonly record struct ProductId(Guid Value)
     {
@@ -103,10 +104,10 @@ namespace NerdStore.Catalog.Domain
             StockQuantity = new Stock(StockQuantity.Value - quantity);
         }
 
-        public bool HasStock(int quantity) => 
+        public bool HasStock(int quantity) =>
             StockQuantity.Value >= quantity;
 
-        public void ReplenishStock(int quantity) => 
+        public void ReplenishStock(int quantity) =>
             StockQuantity = new Stock(StockQuantity.Value + quantity);
 
         public ValidationResult IsValid() =>

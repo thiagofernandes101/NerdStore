@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using NerdStore.Catalog.Domain.ValueObjects;
 
 namespace NerdStore.Catalog.Domain.Validations
 {

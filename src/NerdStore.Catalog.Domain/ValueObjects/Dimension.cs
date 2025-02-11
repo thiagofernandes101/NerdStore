@@ -1,7 +1,7 @@
 ﻿using NerdStore.Catalog.Domain.Validations;
 using NerdStore.Core;
 
-namespace NerdStore.Catalog.Domain
+namespace NerdStore.Catalog.Domain.ValueObjects
 {
     public record Height(decimal Value)
     {
@@ -21,9 +21,9 @@ namespace NerdStore.Catalog.Domain
         public Height Height { get; private set; }
         public Width Width { get; private set; }
         public Depth Depth { get; private set; }
-        
+
         private static readonly DimensionValidator _dimensionValidator = new();
-        
+
         private Dimension(Height height, Width width, Depth depth)
         {
             Height = height;
@@ -34,11 +34,11 @@ namespace NerdStore.Catalog.Domain
         public static Dimension NewDimension(decimal height, decimal width, decimal depth)
         {
             var dimension = new Dimension(
-                Height.NewHeight(height), 
-                Width.NewWidth(width), 
+                Height.NewHeight(height),
+                Width.NewWidth(width),
                 Depth.NewDepth(depth)
             );
-            
+
             return dimension;
         }
     }

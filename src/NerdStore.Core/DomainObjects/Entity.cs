@@ -4,6 +4,9 @@ namespace NerdStore.Core.DomainObjects
 {
     public abstract class Entity<TId> where TId : notnull
     {
+        // Protected parameterless constructor for EF Core
+        protected Entity() { }
+
         protected Entity(TId id)
         {
             Id = id ?? throw new ArgumentNullException(nameof(id));

@@ -44,6 +44,12 @@ namespace NerdStore.Catalog.Domain.Entities
         public CategoryName Name { get; private set; }
         public CategoryCode Code { get; private set; }
 
+        // EF Relation
+        public List<Product> Products { get; set; }
+
+        // Parameterless constructor for EF Core
+        public Category() { }
+
         private Category(CategoryId id, CategoryName name, CategoryCode code) : base(id)
         {
             Name = name;
@@ -51,7 +57,7 @@ namespace NerdStore.Catalog.Domain.Entities
         }
 
         public static Category NewCategory(CategoryName name, CategoryCode code) =>
-            new Category(CategoryId.NewId, name, code);
+            new(CategoryId.NewId, name, code);
 
         public override string ToString() => $"{Name} - {Code}";
     }

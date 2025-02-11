@@ -1,8 +1,8 @@
 ﻿using FluentValidation.Results;
 using NerdStore.Catalog.Domain.Validations;
 using NerdStore.Catalog.Domain.ValueObjects;
-using NerdStore.Core;
 using NerdStore.Core.DomainObjects;
+using NerdStore.Core.Exceptions;
 
 namespace NerdStore.Catalog.Domain.Entities
 {
@@ -66,6 +66,9 @@ namespace NerdStore.Catalog.Domain.Entities
 
         private static readonly ProductValidator _validator = new();
 
+        // Parameterless constructor for EF Core
+        public Product() { }
+
         private Product(ProductId id, ProductName name, Description description, bool active, Price price, Stock stockQuantity, CategoryId categoryId, RegisterDate registerDate, ImageHash image, Dimension dimension) : base(id)
         {
             Name = name;
@@ -79,8 +82,11 @@ namespace NerdStore.Catalog.Domain.Entities
             Dimension = dimension;
         }
 
-        public static Product NewProduct(ProductName name, Description description, bool active, Price price, Stock stockQuantity, CategoryId categoryId, RegisterDate registerDate, ImageHash image, Dimension dimension) =>
-            new(ProductId.NewId, name, description, active, price, stockQuantity, categoryId, registerDate, image, dimension);
+        public static Product NewProduct(ProductName name, Description description, bool active, Price price, Stock stockQuantity, CategoryId categoryId, ImageHash image, Dimension dimension) =>
+            new(ProductId.NewId, name, description, active, price, stockQuantity, categoryId, RegisterDate.NewRegisterDate(DateTime.Now), image, dimension);
+
+        public static Product Default => 
+            new(ProductId.Empty, ProductName.NewProductName(string.Empty), Description.NewDescription(string.Empty), false, Price.NewPrice(0), Stock.NewStock(0), CategoryId.Empty, RegisterDate.NewRegisterDate(DateTime.MinValue), ImageHash.NewImageHash(string.Empty), Dimension.NewDimension(0, 0, 0));
 
         public void Activate() => Active = true;
 
@@ -92,7 +98,8 @@ namespace NerdStore.Catalog.Domain.Entities
             CategoryId = category.Id;
         }
 
-        public void ChagneDescription(string description) => Description = new Description(description);
+        public void ChagneDescription(string description) => 
+            Description = new Description(description);
 
         public void DebitStock(int quantity)
         {

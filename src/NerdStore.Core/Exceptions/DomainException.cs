@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace NerdStore.Core
+namespace NerdStore.Core.Exceptions
 {
     public class DomainException : SystemException
     {

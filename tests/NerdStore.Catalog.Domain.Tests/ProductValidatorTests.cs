@@ -1,7 +1,7 @@
 ﻿using FluentValidation.Results;
 using NerdStore.Catalog.Domain.Entities;
 using NerdStore.Catalog.Domain.ValueObjects;
-using NerdStore.Core;
+using NerdStore.Core.Exceptions;
 
 namespace NerdStore.Catalog.Domain.Tests
 {

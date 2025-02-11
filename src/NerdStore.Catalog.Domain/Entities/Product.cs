@@ -2,6 +2,7 @@
 using NerdStore.Catalog.Domain.Validations;
 using NerdStore.Catalog.Domain.ValueObjects;
 using NerdStore.Core;
+using NerdStore.Core.DomainObjects;
 
 namespace NerdStore.Catalog.Domain.Entities
 {

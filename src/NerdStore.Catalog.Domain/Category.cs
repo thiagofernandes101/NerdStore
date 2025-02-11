@@ -4,7 +4,8 @@ namespace NerdStore.Catalog.Domain
 {
     public readonly record struct CategoryId(Guid Value)
     {
-        public CategoryId() : this(Guid.NewGuid()) { }
+        public static CategoryId Empty => new(Guid.Empty);
+        public static CategoryId NewId => new(Guid.NewGuid());
         public override string ToString() => Value.ToString();
     }
 
@@ -43,11 +44,14 @@ namespace NerdStore.Catalog.Domain
         public CategoryName Name { get; private set; }
         public CategoryCode Code { get; private set; }
 
-        public Category(CategoryId id, CategoryName name, CategoryCode code) : base(id)
+        private Category(CategoryId id, CategoryName name, CategoryCode code) : base(id)
         {
             Name = name;
             Code = code;
         }
+
+        public static Category NewCategory(CategoryName name, CategoryCode code) =>
+            new Category(CategoryId.NewId, name, code);
 
         public override string ToString() => $"{Name} - {Code}";
     }

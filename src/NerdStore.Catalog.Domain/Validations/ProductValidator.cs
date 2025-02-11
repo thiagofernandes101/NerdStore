@@ -7,22 +7,22 @@ namespace NerdStore.Catalog.Domain.Validations
         public ProductValidator()
         {
             RuleFor(p => p.Name)
-            .NotNull().WithMessage("Product name is required.")
-            .Must(name => !string.IsNullOrWhiteSpace(name.Value))
-            .WithMessage("Product name cannot be empty.");
+                .NotNull()
+                .Must(name => !string.IsNullOrWhiteSpace(name.Value))
+                .WithMessage("Product name cannot be empty.");
 
             RuleFor(p => p.Description)
-                .NotNull().WithMessage("Description is required.")
+                .NotNull()
                 .Must(x => !string.IsNullOrWhiteSpace(x.Value))
                 .WithMessage("Description cannot be empty");
 
             RuleFor(p => p.Price)
-                .NotNull().WithMessage("Price is required.")
+                .NotNull()
                 .Must(price => price.Value >= 0)
                 .WithMessage("Price must be greater then zero.");
 
             RuleFor(p => p.Image)
-                .NotNull().WithMessage("Product image is required.")
+                .NotNull()
                 .Must(hash => !string.IsNullOrWhiteSpace(hash.Value))
                 .WithMessage("Product image cannot be empry.");
 

@@ -8,15 +8,15 @@ namespace NerdStore.Catalog.Domain.Validations
         {
             RuleFor(property => property.Height.Value)
                 .GreaterThan(0)
-                .WithMessage("The height must be greater than zero.");
+                .WithMessage("Height must be greater than zero.");
 
             RuleFor(property => property.Width.Value)
                 .GreaterThan(0)
-                .WithMessage("The width must be greater than zero.");
+                .WithMessage("Width must be greater than zero.");
 
             RuleFor(property => property.Depth.Value)
                 .GreaterThan(0)
-                .WithMessage("The depth must be greater than zero.");
+                .WithMessage("Depth must be greater than zero.");
         }
     }
 }

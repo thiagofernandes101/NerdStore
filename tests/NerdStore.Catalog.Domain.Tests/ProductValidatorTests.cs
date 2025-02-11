@@ -3,7 +3,7 @@ using NerdStore.Core;
 
 namespace NerdStore.Catalog.Domain.Tests
 {
-    public class ProductTests
+    public class ProductValidatorTests
     {
         [Fact]
         public void ProductValidator_ShouldReturnValidForCorrectProduct()

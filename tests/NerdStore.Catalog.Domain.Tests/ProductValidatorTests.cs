@@ -18,7 +18,6 @@ namespace NerdStore.Catalog.Domain.Tests
                 Price.NewPrice(10),
                 Stock.NewStock(10),
                 CategoryId.NewId,
-                RegisterDate.Now,
                 ImageHash.NewImageHash("validhash"),
                 Dimension.NewDimension(1, 1, 1)
             );
@@ -39,7 +38,6 @@ namespace NerdStore.Catalog.Domain.Tests
                 Price.NewPrice(10),
                 Stock.NewStock(10),
                 CategoryId.NewId,
-                RegisterDate.Now,
                 ImageHash.NewImageHash("validhash"),
                 Dimension.NewDimension(1, 1, 1)
             );
@@ -63,7 +61,6 @@ namespace NerdStore.Catalog.Domain.Tests
                 Price.NewPrice(10),
                 Stock.NewStock(10),
                 CategoryId.NewId,
-                RegisterDate.Now,
                 ImageHash.NewImageHash("validhash"),
                 Dimension.NewDimension(1, 1, 1)
             );
@@ -87,7 +84,6 @@ namespace NerdStore.Catalog.Domain.Tests
                 Price.NewPrice(-1),
                 Stock.NewStock(10),
                 CategoryId.NewId,
-                RegisterDate.Now,
                 ImageHash.NewImageHash("validhash"),
                 Dimension.NewDimension(1, 1, 1)
             );
@@ -111,7 +107,6 @@ namespace NerdStore.Catalog.Domain.Tests
                 Price.NewPrice(10),
                 Stock.NewStock(10),
                 CategoryId.NewId,
-                RegisterDate.Now,
                 ImageHash.NewImageHash(""),
                 Dimension.NewDimension(1, 1, 1)
             );
@@ -135,7 +130,6 @@ namespace NerdStore.Catalog.Domain.Tests
                 Price.NewPrice(10),
                 Stock.NewStock(10),
                 CategoryId.NewId,
-                RegisterDate.Now,
                 ImageHash.NewImageHash("validhash"),
                 Dimension.NewDimension(1, 1, 1)
             );
@@ -155,7 +149,6 @@ namespace NerdStore.Catalog.Domain.Tests
                 Price.NewPrice(10),
                 Stock.NewStock(10),
                 CategoryId.Empty,
-                RegisterDate.Now,
                 ImageHash.NewImageHash("validhash"),
                 Dimension.NewDimension(1, 1, 1)
             );
@@ -179,7 +172,6 @@ namespace NerdStore.Catalog.Domain.Tests
                 Price.NewPrice(10),
                 Stock.NewStock(10),
                 CategoryId.NewId,
-                RegisterDate.Now,
                 ImageHash.NewImageHash("validhash"),
                 Dimension.NewDimension(0, 1, 1)
             );
@@ -201,7 +193,6 @@ namespace NerdStore.Catalog.Domain.Tests
                 Price.NewPrice(10),
                 Stock.NewStock(10),
                 CategoryId.NewId,
-                RegisterDate.Now,
                 ImageHash.NewImageHash("validhash"),
                 Dimension.NewDimension(1, 0, 1)
             );
@@ -223,7 +214,6 @@ namespace NerdStore.Catalog.Domain.Tests
                 Price.NewPrice(10),
                 Stock.NewStock(10),
                 CategoryId.NewId,
-                RegisterDate.Now,
                 ImageHash.NewImageHash("validhash"),
                 Dimension.NewDimension(1, 1, 0)
             );

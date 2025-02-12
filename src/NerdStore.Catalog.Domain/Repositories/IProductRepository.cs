@@ -1,12 +1,13 @@
 ﻿using NerdStore.Catalog.Domain.Entities;
 using NerdStore.Core.Data;
+using NerdStore.Core.Patterns;
 
 namespace NerdStore.Catalog.Domain.Repositories
 {
     public interface IProductRepository : IRepository<Product>
     {
         Task<IEnumerable<Product>> GetAll();
-        Task<Product> GetById(ProductId id);
+        Task<Option<Product>> GetById(ProductId id);
         Task<IEnumerable<Product>> GetByCategory(CategoryCode code);
         Task<IEnumerable<Category>> GetCategories();
         Task Add(Product product);

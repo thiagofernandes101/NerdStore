@@ -3,10 +3,11 @@ using NerdStore.Catalog.Data.Contexts;
 using NerdStore.Catalog.Domain.Entities;
 using NerdStore.Catalog.Domain.Repositories;
 using NerdStore.Core.Data;
+using NerdStore.Core.Patterns;
 
 namespace NerdStore.Catalog.Data.Repositories
 {
-    internal class ProductRepository : IProductRepository
+    public class ProductRepository : IProductRepository
     {
         private readonly CatalogContext _catalogContext;
 
@@ -27,19 +28,23 @@ namespace NerdStore.Catalog.Data.Repositories
             await _catalogContext.Categories.AddAsync(category);
         }
 
-        public async Task<IEnumerable<Product>> GetAll() => 
+        public async Task<IEnumerable<Product>> GetAll() =>
             await _catalogContext.Products.AsNoTracking().ToListAsync();
 
-        public async Task<IEnumerable<Product>> GetByCategory(CategoryCode code) => 
+        public async Task<IEnumerable<Product>> GetByCategory(CategoryCode code) =>
             await _catalogContext.Products.AsNoTracking()
                 .Include(p => p.Category)
                 .Where(p => p.Category.Code == code)
                 .ToListAsync();
 
-        public async Task<Product> GetById(ProductId id) => 
-            await _catalogContext.Products
+        public async Task<Option<Product>> GetById(ProductId id)
+        {
+            var product = await _catalogContext.Products
                 .AsNoTracking()
-                .FirstOrDefaultAsync(p => p.Id == id) ?? Product.Default;
+                .FirstOrDefaultAsync(p => p.Id == id);
+
+            return product != null ? Option<Product>.Some(product) : Option<Product>.None();
+        }
 
         public async Task<IEnumerable<Category>> GetCategories() =>
             await _catalogContext.Categories.AsNoTracking().ToListAsync();

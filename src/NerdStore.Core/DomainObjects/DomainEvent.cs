@@ -2,9 +2,9 @@
 
 namespace NerdStore.Core.DomainObjects
 {
-    public class DomainEvent<TId> : Event<TId> where TId : notnull
+    public abstract class DomainEvent<TId> : Event<TId> where TId : notnull
     {
-        public DomainEvent(TId aggregateId) : base(aggregateId)
+        protected DomainEvent(TId aggregateId) : base(aggregateId)
         {
         }
     }

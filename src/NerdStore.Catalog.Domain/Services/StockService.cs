@@ -34,7 +34,8 @@ namespace NerdStore.Catalog.Domain.Services
                 product.DebitStock(quantity);
                 if (product.StockQuantity.Value < 10)
                 {
-                    await _mediatRHandler.PublishEvent<ProductBelowStockEvent<ProductId>, ProductId>(ProductBelowStockEvent<ProductId>.Create(product.Id, product.StockQuantity));
+                    var lowStockEvent = ProductBelowStockEvent<ProductId>.Create(product.Id, product.StockQuantity);
+                    await _mediatRHandler.PublishEvent(lowStockEvent);
                 }
                 await _productRepository.Update(product);
                 return await _productRepository.UnitOfWork.Commit();

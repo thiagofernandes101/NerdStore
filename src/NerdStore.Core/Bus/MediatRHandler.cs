@@ -1,11 +1,10 @@
 ﻿using MediatR;
-using NerdStore.Core.Messages;
 
 namespace NerdStore.Core.Bus
 {
     public interface IMediatRHandler
     {
-        Task PublishEvent<TEvent, TId>(TEvent domainEvent) where TEvent : Event<TId> where TId : notnull;
+        Task PublishEvent<TEvent>(TEvent domainEvent) where TEvent : INotification;
     }
 
     public class MediatRHandler : IMediatRHandler
@@ -17,7 +16,7 @@ namespace NerdStore.Core.Bus
             _mediator = mediator;
         }
 
-        public async Task PublishEvent<TEvent, TId>(TEvent domainEvent) where TEvent : Event<TId> where TId : notnull
+        public async Task PublishEvent<TEvent>(TEvent domainEvent) where TEvent : INotification
         {
             await _mediator.Publish(domainEvent);
         }

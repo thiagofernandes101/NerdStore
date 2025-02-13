@@ -2,10 +2,6 @@
 using NerdStore.Catalog.Domain.Events;
 using NerdStore.Catalog.Domain.Repositories;
 using NerdStore.Core.Bus;
-using NerdStore.Core.Exceptions;
-using NerdStore.Core.Messages;
-using System.Reflection.Metadata.Ecma335;
-using System.Text.RegularExpressions;
 
 namespace NerdStore.Catalog.Domain.Services
 {

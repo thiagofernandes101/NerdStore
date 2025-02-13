@@ -24,10 +24,10 @@ namespace NerdStore.Catalog.Domain.Services
         public async Task<bool> DebitStock(ProductId productId, int quantity)
         {
             var product = await _productRepository.GetById(productId);
-            if (product.HasValue && product.Content.HasStock(quantity))
+            if (product is not null && product.HasStock(quantity))
             {
-                product.Content.DebitStock(quantity);
-                await _productRepository.Update(product.Content);
+                product.DebitStock(quantity);
+                await _productRepository.Update(product);
                 return await _productRepository.UnitOfWork.Commit();
             }
             return false;
@@ -36,10 +36,10 @@ namespace NerdStore.Catalog.Domain.Services
         public async Task<bool> ReplenishStock(ProductId productId, int quantity)
         {
             var product = await _productRepository.GetById(productId);
-            if ( product.HasValue)
+            if ( product is not null)
             {
-                product.Content.ReplenishStock(quantity);
-                await _productRepository.Update(product.Content);
+                product.ReplenishStock(quantity);
+                await _productRepository.Update(product);
                 return await _productRepository.UnitOfWork.Commit();
             }
             return false;

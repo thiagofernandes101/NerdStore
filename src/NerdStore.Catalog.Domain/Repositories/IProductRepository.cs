@@ -1,6 +1,5 @@
 ﻿using NerdStore.Catalog.Domain.Entities;
 using NerdStore.Core.Data;
-using NerdStore.Core.Patterns;
 
 namespace NerdStore.Catalog.Domain.Repositories
 {

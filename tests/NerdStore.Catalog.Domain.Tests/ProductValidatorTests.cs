@@ -16,7 +16,7 @@ namespace NerdStore.Catalog.Domain.Tests
                 Description.NewDescription("Valid description"),
                 true,
                 Price.NewPrice(10),
-                Stock.NewStock(10),
+                StockQuantity.NewStock(10),
                 CategoryId.NewId,
                 ImageHash.NewImageHash("validhash"),
                 Dimension.NewDimension(1, 1, 1)
@@ -36,7 +36,7 @@ namespace NerdStore.Catalog.Domain.Tests
                 Description.NewDescription("Valid description"),
                 true,
                 Price.NewPrice(10),
-                Stock.NewStock(10),
+                StockQuantity.NewStock(10),
                 CategoryId.NewId,
                 ImageHash.NewImageHash("validhash"),
                 Dimension.NewDimension(1, 1, 1)
@@ -59,7 +59,7 @@ namespace NerdStore.Catalog.Domain.Tests
                 Description.NewDescription(""),
                 true,
                 Price.NewPrice(10),
-                Stock.NewStock(10),
+                StockQuantity.NewStock(10),
                 CategoryId.NewId,
                 ImageHash.NewImageHash("validhash"),
                 Dimension.NewDimension(1, 1, 1)
@@ -82,7 +82,7 @@ namespace NerdStore.Catalog.Domain.Tests
                 Description.NewDescription("Valid description"),
                 true,
                 Price.NewPrice(-1),
-                Stock.NewStock(10),
+                StockQuantity.NewStock(10),
                 CategoryId.NewId,
                 ImageHash.NewImageHash("validhash"),
                 Dimension.NewDimension(1, 1, 1)
@@ -105,7 +105,7 @@ namespace NerdStore.Catalog.Domain.Tests
                 Description.NewDescription("Valid description"),
                 true,
                 Price.NewPrice(10),
-                Stock.NewStock(10),
+                StockQuantity.NewStock(10),
                 CategoryId.NewId,
                 ImageHash.NewImageHash(""),
                 Dimension.NewDimension(1, 1, 1)
@@ -128,7 +128,7 @@ namespace NerdStore.Catalog.Domain.Tests
                 Description.NewDescription("Valid description"),
                 true,
                 Price.NewPrice(10),
-                Stock.NewStock(10),
+                StockQuantity.NewStock(10),
                 CategoryId.NewId,
                 ImageHash.NewImageHash("validhash"),
                 Dimension.NewDimension(1, 1, 1)
@@ -147,7 +147,7 @@ namespace NerdStore.Catalog.Domain.Tests
                 Description.NewDescription("Valid description"),
                 true,
                 Price.NewPrice(10),
-                Stock.NewStock(10),
+                StockQuantity.NewStock(10),
                 CategoryId.Empty,
                 ImageHash.NewImageHash("validhash"),
                 Dimension.NewDimension(1, 1, 1)
@@ -170,7 +170,7 @@ namespace NerdStore.Catalog.Domain.Tests
                 Description.NewDescription("Valid description"),
                 true,
                 Price.NewPrice(10),
-                Stock.NewStock(10),
+                StockQuantity.NewStock(10),
                 CategoryId.NewId,
                 ImageHash.NewImageHash("validhash"),
                 Dimension.NewDimension(0, 1, 1)
@@ -191,7 +191,7 @@ namespace NerdStore.Catalog.Domain.Tests
                 Description.NewDescription("Valid description"),
                 true,
                 Price.NewPrice(10),
-                Stock.NewStock(10),
+                StockQuantity.NewStock(10),
                 CategoryId.NewId,
                 ImageHash.NewImageHash("validhash"),
                 Dimension.NewDimension(1, 0, 1)
@@ -212,7 +212,7 @@ namespace NerdStore.Catalog.Domain.Tests
                 Description.NewDescription("Valid description"),
                 true,
                 Price.NewPrice(10),
-                Stock.NewStock(10),
+                StockQuantity.NewStock(10),
                 CategoryId.NewId,
                 ImageHash.NewImageHash("validhash"),
                 Dimension.NewDimension(1, 1, 0)

@@ -38,9 +38,9 @@ namespace NerdStore.Catalog.Domain.Entities
         public override string ToString() => Value;
     }
 
-    public record Stock(int Value)
+    public record StockQuantity(int Value)
     {
-        public static Stock NewStock(int value) => new(value);
+        public static StockQuantity NewStock(int value) => new(value);
         public override string ToString() => Value.ToString();
     }
 
@@ -60,7 +60,7 @@ namespace NerdStore.Catalog.Domain.Entities
         public Price Price { get; private set; }
         public RegisterDate RegisterDate { get; private set; }
         public ImageHash Image { get; private set; }
-        public Stock StockQuantity { get; private set; }
+        public StockQuantity StockQuantity { get; private set; }
         public Category Category { get; set; }
         public Dimension Dimension { get; set; }
 
@@ -69,7 +69,7 @@ namespace NerdStore.Catalog.Domain.Entities
         // Parameterless constructor for EF Core
         public Product() { }
 
-        private Product(ProductId id, ProductName name, Description description, bool active, Price price, Stock stockQuantity, CategoryId categoryId, RegisterDate registerDate, ImageHash image, Dimension dimension) : base(id)
+        private Product(ProductId id, ProductName name, Description description, bool active, Price price, StockQuantity stockQuantity, CategoryId categoryId, RegisterDate registerDate, ImageHash image, Dimension dimension) : base(id)
         {
             Name = name;
             Description = description;
@@ -82,11 +82,11 @@ namespace NerdStore.Catalog.Domain.Entities
             Dimension = dimension;
         }
 
-        public static Product NewProduct(ProductName name, Description description, bool active, Price price, Stock stockQuantity, CategoryId categoryId, ImageHash image, Dimension dimension) =>
+        public static Product NewProduct(ProductName name, Description description, bool active, Price price, StockQuantity stockQuantity, CategoryId categoryId, ImageHash image, Dimension dimension) =>
             new(ProductId.NewId, name, description, active, price, stockQuantity, categoryId, RegisterDate.NewRegisterDate(DateTime.Now), image, dimension);
 
         public static Product Default => 
-            new(ProductId.Empty, ProductName.NewProductName(string.Empty), Description.NewDescription(string.Empty), false, Price.NewPrice(0), Stock.NewStock(0), CategoryId.Empty, RegisterDate.NewRegisterDate(DateTime.MinValue), ImageHash.NewImageHash(string.Empty), Dimension.NewDimension(0, 0, 0));
+            new(ProductId.Empty, ProductName.NewProductName(string.Empty), Description.NewDescription(string.Empty), false, Price.NewPrice(0), StockQuantity.NewStock(0), CategoryId.Empty, RegisterDate.NewRegisterDate(DateTime.MinValue), ImageHash.NewImageHash(string.Empty), Dimension.NewDimension(0, 0, 0));
 
         public void Activate() => Active = true;
 
@@ -109,14 +109,14 @@ namespace NerdStore.Catalog.Domain.Entities
             if (!HasStock(quantity))
                 throw new DomainException("Insufficient stock.");
 
-            StockQuantity = new Stock(StockQuantity.Value - quantity);
+            StockQuantity = new StockQuantity(StockQuantity.Value - quantity);
         }
 
         public bool HasStock(int quantity) =>
             StockQuantity.Value >= quantity;
 
         public void ReplenishStock(int quantity) =>
-            StockQuantity = new Stock(StockQuantity.Value + quantity);
+            StockQuantity = new StockQuantity(StockQuantity.Value + quantity);
 
         public ValidationResult IsValid() =>
             _validator.Validate(this);

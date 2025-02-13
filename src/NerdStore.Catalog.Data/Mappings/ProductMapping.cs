@@ -43,7 +43,7 @@ namespace NerdStore.Catalog.Data.Mappings
 
             builder.Property(property => property.StockQuantity)
                 .IsRequired()
-                .HasConversion(stock => stock.Value, value => new Stock(value))
+                .HasConversion(stock => stock.Value, value => new StockQuantity(value))
                 .HasColumnType("int");
 
             builder.HasOne(p => p.Category)

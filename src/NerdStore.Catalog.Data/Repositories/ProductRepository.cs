@@ -3,7 +3,6 @@ using NerdStore.Catalog.Data.Contexts;
 using NerdStore.Catalog.Domain.Entities;
 using NerdStore.Catalog.Domain.Repositories;
 using NerdStore.Core.Data;
-using NerdStore.Core.Patterns;
 
 namespace NerdStore.Catalog.Data.Repositories
 {

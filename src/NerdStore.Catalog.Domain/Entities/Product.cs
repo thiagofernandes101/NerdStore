@@ -14,11 +14,11 @@ namespace NerdStore.Catalog.Domain.Entities
         public override string ToString() => Value.ToString();
     }
 
-    public record ProductName
+    public record Name
     {
         public string Value { get; }
-        private ProductName(string value) => Value = value;
-        public static ProductName Create(string value) => new(value);
+        private Name(string value) => Value = value;
+        public static Name Create(string value) => new(value);
         public override string ToString() => Value;
     }
 
@@ -66,7 +66,7 @@ namespace NerdStore.Catalog.Domain.Entities
     public class Product : Entity<ProductId>, IAggregateRoot
     {
         public CategoryId CategoryId { get; private set; }
-        public ProductName Name { get; private set; }
+        public Name Name { get; private set; }
         public Description Description { get; private set; }
         public bool Active { get; private set; }
         public Price Price { get; private set; }
@@ -81,7 +81,7 @@ namespace NerdStore.Catalog.Domain.Entities
         [Obsolete("Parameterless constructor is for EF Core and mapping only.")]
         public Product() { }
 
-        private Product(ProductId id, ProductName name, Description description, bool active, Price price, StockQuantity stockQuantity, CategoryId categoryId, RegisterDate registerDate, ImageHash image, Dimension dimension) : base(id)
+        private Product(ProductId id, Name name, Description description, bool active, Price price, StockQuantity stockQuantity, CategoryId categoryId, RegisterDate registerDate, ImageHash image, Dimension dimension) : base(id)
         {
             Name = name;
             Description = description;
@@ -94,11 +94,22 @@ namespace NerdStore.Catalog.Domain.Entities
             Dimension = dimension;
         }
 
-        public static Product NewProduct(ProductName name, Description description, bool active, Price price, StockQuantity stockQuantity, CategoryId categoryId, ImageHash image, Dimension dimension) =>
-            new(ProductId.NewId, name, description, active, price, stockQuantity, categoryId, RegisterDate.Create(DateTime.Now), image, dimension);
+        public static Product Create(string name, string description, bool active, decimal price, int stockQuantity, 
+            CategoryId categoryId, string image, int height, int width, int depth) =>
+            new(
+                ProductId.NewId, 
+                Name.Create(name),
+                Description.Create(description), 
+                active, 
+                Price.Create(price), 
+                StockQuantity.Create(stockQuantity), 
+                categoryId,
+                RegisterDate.Create(DateTime.Now), 
+                ImageHash.Create(image),
+                Dimension.Create(height, width, depth));
 
         public static Product Default => 
-            new(ProductId.Empty, ProductName.Create(string.Empty), Description.Create(string.Empty), false, Price.Create(0), StockQuantity.Create(0), CategoryId.Empty, RegisterDate.Create(DateTime.MinValue), ImageHash.Create(string.Empty), Dimension.Create(0, 0, 0));
+            new(ProductId.Empty, Name.Create(string.Empty), Description.Create(string.Empty), false, Price.Create(0), StockQuantity.Create(0), CategoryId.Empty, RegisterDate.Create(DateTime.MinValue), ImageHash.Create(string.Empty), Dimension.Create(0, 0, 0));
 
         public void Activate() => Active = true;
 

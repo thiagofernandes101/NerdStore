@@ -18,7 +18,7 @@ namespace NerdStore.Catalog.Data.Mappings
 
             builder.Property(property => property.Name)
                 .IsRequired()
-                .HasConversion(name => name.Value, value => ProductName.Create(value))
+                .HasConversion(name => name.Value, value => Name.Create(value))
                 .HasColumnType("varchar(250)");
 
             builder.Property(property => property.Description)

@@ -1,6 +1,5 @@
 ﻿using FluentValidation.Results;
 using NerdStore.Catalog.Domain.Entities;
-using NerdStore.Catalog.Domain.ValueObjects;
 using NerdStore.Core.Exceptions;
 
 namespace NerdStore.Catalog.Domain.Tests
@@ -11,15 +10,17 @@ namespace NerdStore.Catalog.Domain.Tests
         public void ProductValidator_ShouldReturnValidForCorrectProduct()
         {
             // Arrange
-            var product = Product.NewProduct(
-                ProductName.Create("Valid name"),
-                Description.Create("Valid description"),
+            var product = Product.Create(
+                "Valid name",
+                "Valid description",
                 true,
-                Price.Create(10),
-                StockQuantity.Create(10),
+                10,
+                10,
                 CategoryId.NewId,
-                ImageHash.Create("validhash"),
-                Dimension.Create(1, 1, 1)
+                "validhash",
+                1, 
+                1, 
+                1
             );
             // Act
             ValidationResult result = product.IsValid();
@@ -31,15 +32,17 @@ namespace NerdStore.Catalog.Domain.Tests
         public void ProductValidator_ShouldReturnErrorForEmptyProductName()
         {
             // Arrange
-            var product = Product.NewProduct(
-                ProductName.Create(""),
-                Description.Create("Valid description"),
+            var product = Product.Create(
+                "",
+                "Valid description",
                 true,
-                Price.Create(10),
-                StockQuantity.Create(10),
+                10,
+                10,
                 CategoryId.NewId,
-                ImageHash.Create("validhash"),
-                Dimension.Create(1, 1, 1)
+                "validhash",
+                1, 
+                1, 
+                1
             );
 
             // Act
@@ -54,15 +57,17 @@ namespace NerdStore.Catalog.Domain.Tests
         public void ProductValidator_ShouldReturnErrorForEmptyDescription()
         {
             // Arrange
-            var product = Product.NewProduct(
-                ProductName.Create("Valid name"),
-                Description.Create(""),
+            var product = Product.Create(
+                "Valid name",
+                "",
                 true,
-                Price.Create(10),
-                StockQuantity.Create(10),
+                10,
+                10,
                 CategoryId.NewId,
-                ImageHash.Create("validhash"),
-                Dimension.Create(1, 1, 1)
+                "validhash",
+                1, 
+                1, 
+                1
             );
 
             // Act
@@ -77,15 +82,17 @@ namespace NerdStore.Catalog.Domain.Tests
         public void ProductValidator_ShouldReturnErrorForNegativePrice()
         {
             // Arrange
-            var product = Product.NewProduct(
-                ProductName.Create("Valid name"),
-                Description.Create("Valid description"),
+            var product = Product.Create(
+                "Valid name",
+                "Valid description",
                 true,
-                Price.Create(-1),
-                StockQuantity.Create(10),
+                -1,
+                10,
                 CategoryId.NewId,
-                ImageHash.Create("validhash"),
-                Dimension.Create(1, 1, 1)
+                "validhash",
+               1, 
+               1, 
+               1
             );
 
             // Act
@@ -100,15 +107,17 @@ namespace NerdStore.Catalog.Domain.Tests
         public void ProductValidator_ShouldReturnErrorForEmptyImageHash()
         {
             // Arrange
-            var product = Product.NewProduct(
-                ProductName.Create("Valid name"),
-                Description.Create("Valid description"),
+            var product = Product.Create(
+                "Valid name",
+                "Valid description",
                 true,
-                Price.Create(10),
-                StockQuantity.Create(10),
+                10,
+                10,
                 CategoryId.NewId,
-                ImageHash.Create(""),
-                Dimension.Create(1, 1, 1)
+                "",
+                1, 
+                1, 
+                1
             );
 
             // Act
@@ -123,15 +132,17 @@ namespace NerdStore.Catalog.Domain.Tests
         public void ProductValidator_ShouldReturnErrorForNegativeStock()
         {
             // Arrange
-            var product = Product.NewProduct(
-                ProductName.Create("Valid name"),
-                Description.Create("Valid description"),
+            var product = Product.Create(
+                "Valid name",
+                "Valid description",
                 true,
-                Price.Create(10),
-                StockQuantity.Create(10),
+                10,
+                10,
                 CategoryId.NewId,
-                ImageHash.Create("validhash"),
-                Dimension.Create(1, 1, 1)
+                "validhash",
+                1, 
+                1, 
+                1
             );
 
             // Assert
@@ -142,15 +153,17 @@ namespace NerdStore.Catalog.Domain.Tests
         public void ProductValidator_ShouldReturnErrorForEmptyCategoryId()
         {
             // Arrange
-            var product = Product.NewProduct(
-                ProductName.Create("Valid name"),
-                Description.Create("Valid description"),
+            var product = Product.Create(
+                "Valid name",
+                "Valid description",
                 true,
-                Price.Create(10),
-                StockQuantity.Create(10),
+                10,
+                10,
                 CategoryId.Empty,
-                ImageHash.Create("validhash"),
-                Dimension.Create(1, 1, 1)
+                "validhash",
+                1, 
+                1, 
+                1
             );
 
             // Act
@@ -165,15 +178,17 @@ namespace NerdStore.Catalog.Domain.Tests
         public void ProductValidator_ShouldReturnErrorForInvalidHeight()
         {
             // Arrange
-            var product = Product.NewProduct(
-                ProductName.Create("Valid name"),
-                Description.Create("Valid description"),
+            var product = Product.Create(
+                "Valid name",
+                "Valid description",
                 true,
-                Price.Create(10),
-                StockQuantity.Create(10),
+                10,
+                10,
                 CategoryId.NewId,
-                ImageHash.Create("validhash"),
-                Dimension.Create(0, 1, 1)
+                "validhash",
+                0, 
+                1, 
+                1
             );
             // Act
             ValidationResult result = product.IsValid();
@@ -186,15 +201,17 @@ namespace NerdStore.Catalog.Domain.Tests
         public void ProductValidator_ShouldReturnErrorForInvalidWidth()
         {
             // Arrange
-            var product = Product.NewProduct(
-                ProductName.Create("Valid name"),
-                Description.Create("Valid description"),
+            var product = Product.Create(
+                "Valid name",
+                "Valid description",
                 true,
-                Price.Create(10),
-                StockQuantity.Create(10),
+                10,
+                10,
                 CategoryId.NewId,
-                ImageHash.Create("validhash"),
-                Dimension.Create(1, 0, 1)
+                "validhash",
+                1, 
+                0, 
+                1
             );
             // Act
             ValidationResult result = product.IsValid();
@@ -207,15 +224,17 @@ namespace NerdStore.Catalog.Domain.Tests
         public void ProductValidator_ShouldReturnErrorForInvalidDepth()
         {
             // Arrange
-            var product = Product.NewProduct(
-                ProductName.Create("Valid name"),
-                Description.Create("Valid description"),
+            var product = Product.Create(
+                "Valid name",
+                "Valid description",
                 true,
-                Price.Create(10),
-                StockQuantity.Create(10),
+                10,
+                10,
                 CategoryId.NewId,
-                ImageHash.Create("validhash"),
-                Dimension.Create(1, 1, 0)
+                "validhash",
+                1, 
+                1, 
+                0
             );
             // Act
             ValidationResult result = product.IsValid();

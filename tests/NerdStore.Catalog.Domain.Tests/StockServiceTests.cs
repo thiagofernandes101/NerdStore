@@ -53,15 +53,17 @@ namespace NerdStore.Catalog.Domain.Tests
         public async Task DebitStock_ShouldReturnTrue_WhenProductHasSufficientStock()
         {
             // Arrange
-            var product = Product.NewProduct(
-                ProductName.Create("Product name"),
-                Description.Create("Product description"),
+            var product = Product.Create(
+                "Product name",
+                "Product description",
                 true,
-                Price.Create(19.99m),
-                StockQuantity.Create(20),
+                19.99m,
+                20,
                 CategoryId.NewId,
-                ImageHash.Create("image-hash"),
-                Dimension.Create(10, 10, 10));
+                "image-hash",
+                10, 
+                10, 
+                10);
 
             _productRepositoryMock.GetById(product.Id).Returns(product);
             _productRepositoryMock.UnitOfWork.Commit().Returns(true);
@@ -79,15 +81,16 @@ namespace NerdStore.Catalog.Domain.Tests
         public async Task DebitStock_ShouldPublishLowStockEvent_WhenStockBelowThreshold()
         {
             // Arrange
-            var product = Product.NewProduct(
-                ProductName.Create("Product name"),
-                Description.Create("Product description"),
+            var product = Product.Create(
+                "Product name",
+                "Product description",
                 true,
-                Price.Create(19.99m),
-                StockQuantity.Create(10),
+                19.99m,
+                10,
                 CategoryId.NewId,
-                ImageHash.Create("image-hash"),
-                Dimension.Create(10, 10, 10));
+                "image-hash",
+                10, 
+                10, 10);
             
             _productRepositoryMock.GetById(product.Id).Returns(product);
             _productRepositoryMock.UnitOfWork.Commit().Returns(true);

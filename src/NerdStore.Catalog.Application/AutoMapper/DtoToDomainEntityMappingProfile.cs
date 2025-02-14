@@ -11,7 +11,7 @@ namespace NerdStore.Catalog.Application.AutoMapper
         public DtoToDomainEntityMappingProfile() 
         {
             CreateMap<ProductDto, Product>()
-                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => ProductName.Create(src.Name.Value)))
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => Name.Create(src.Name.Value)))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => Description.Create(src.Description.Value)))
                 .ForMember(dest => dest.Active, opt => opt.MapFrom(src => src.Active))
                 .ForMember(dest => dest.Price, opt => opt.MapFrom(src => Price.Create(src.Price.Value)))

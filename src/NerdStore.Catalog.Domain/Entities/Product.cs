@@ -14,38 +14,50 @@ namespace NerdStore.Catalog.Domain.Entities
         public override string ToString() => Value.ToString();
     }
 
-    public record ProductName(string Value)
+    public record ProductName
     {
+        public string Value { get; }
+        private ProductName(string value) => Value = value;
         public static ProductName Create(string value) => new(value);
         public override string ToString() => Value;
     }
 
-    public record Description(string Value)
+    public record Description
     {
+        public string Value { get; }
+        private Description(string value) => Value = value;
         public static Description Create(string value) => new(value);
         public override string ToString() => Value;
     }
 
-    public record Price(decimal Value)
+    public record Price
     {
+        public decimal Value { get; }
+        private Price(decimal value) => Value = value;
         public static Price Create(decimal value) => new(value);
         public override string ToString() => Value.ToString("C");
     }
 
-    public record ImageHash(string Value)
+    public record ImageHash
     {
+        public string Value { get; }
+        private ImageHash(string value) => Value = value;
         public static ImageHash Create(string value) => new(value);
         public override string ToString() => Value;
     }
 
-    public record StockQuantity(int Value)
+    public record StockQuantity
     {
+        public int Value { get; }
+        private StockQuantity(int value) => Value = value;
         public static StockQuantity Create(int value) => new(value);
         public override string ToString() => Value.ToString();
     }
 
-    public record RegisterDate(DateTime Value)
+    public record RegisterDate
     {
+        public DateTime Value { get; }
+        private RegisterDate(DateTime value) => Value = value;
         public static RegisterDate Create(DateTime value) => new(value);
         public static RegisterDate Now => new(DateTime.Now);
         public override string ToString() => Value.ToString("yyyy-MM-dd");
@@ -53,7 +65,7 @@ namespace NerdStore.Catalog.Domain.Entities
 
     public class Product : Entity<ProductId>, IAggregateRoot
     {
-        public CategoryId CategoryId { get; set; }
+        public CategoryId CategoryId { get; private set; }
         public ProductName Name { get; private set; }
         public Description Description { get; private set; }
         public bool Active { get; private set; }
@@ -61,12 +73,12 @@ namespace NerdStore.Catalog.Domain.Entities
         public RegisterDate RegisterDate { get; private set; }
         public ImageHash Image { get; private set; }
         public StockQuantity StockQuantity { get; private set; }
-        public Category Category { get; set; }
-        public Dimension Dimension { get; set; }
+        public Category Category { get; private set; }
+        public Dimension Dimension { get; private set; }
 
         private static readonly ProductValidator _validator = new();
 
-        // Parameterless constructor for EF Core
+        [Obsolete("Parameterless constructor is for EF Core and mapping only.")]
         public Product() { }
 
         private Product(ProductId id, ProductName name, Description description, bool active, Price price, StockQuantity stockQuantity, CategoryId categoryId, RegisterDate registerDate, ImageHash image, Dimension dimension) : base(id)
@@ -99,7 +111,7 @@ namespace NerdStore.Catalog.Domain.Entities
         }
 
         public void ChagneDescription(string description) => 
-            Description = new Description(description);
+            Description = Description.Create(description);
 
         public void DebitStock(int quantity)
         {
@@ -109,14 +121,14 @@ namespace NerdStore.Catalog.Domain.Entities
             if (!HasStock(quantity))
                 throw new DomainException("Insufficient stock.");
 
-            StockQuantity = new StockQuantity(StockQuantity.Value - quantity);
+            StockQuantity = StockQuantity.Create(StockQuantity.Value - quantity);
         }
 
         public bool HasStock(int quantity) =>
             StockQuantity.Value >= quantity;
 
         public void ReplenishStock(int quantity) =>
-            StockQuantity = new StockQuantity(StockQuantity.Value + quantity);
+            StockQuantity = StockQuantity.Create(StockQuantity.Value + quantity);
 
         public ValidationResult IsValid() =>
             _validator.Validate(this);

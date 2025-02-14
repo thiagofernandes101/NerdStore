@@ -18,32 +18,32 @@ namespace NerdStore.Catalog.Data.Mappings
 
             builder.Property(property => property.Name)
                 .IsRequired()
-                .HasConversion(name => name.Value, value => new ProductName(value))
+                .HasConversion(name => name.Value, value => ProductName.Create(value))
                 .HasColumnType("varchar(250)");
 
             builder.Property(property => property.Description)
                 .IsRequired()
-                .HasConversion(description => description.Value, value => new Description(value))
+                .HasConversion(description => description.Value, value => Description.Create(value))
                 .HasColumnType("varchar(500)");
 
             builder.Property(property => property.Image)
                 .IsRequired()
-                .HasConversion(image => image.Value, value => new ImageHash(value))
+                .HasConversion(image => image.Value, value => ImageHash.Create(value))
                 .HasColumnType("varchar(250)");
 
             builder.Property(property => property.Price)
                 .IsRequired()
-                .HasConversion(price => price.Value, value => new Price(value))
+                .HasConversion(price => price.Value, value => Price.Create(value))
                 .HasColumnType("decimal(10,2)");
 
             builder.Property(builder => builder.RegisterDate)
                 .IsRequired()
-                .HasConversion(registerDate => registerDate.Value, value => new RegisterDate(value))
+                .HasConversion(registerDate => registerDate.Value, value => RegisterDate.Create(value))
                 .HasColumnType("datetime");
 
             builder.Property(property => property.StockQuantity)
                 .IsRequired()
-                .HasConversion(stock => stock.Value, value => new StockQuantity(value))
+                .HasConversion(stock => stock.Value, value => StockQuantity.Create(value))
                 .HasColumnType("int");
 
             builder.HasOne(p => p.Category)

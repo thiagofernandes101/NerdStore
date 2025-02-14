@@ -16,37 +16,37 @@ namespace NerdStore.Catalog.Domain.Entities
 
     public record ProductName(string Value)
     {
-        public static ProductName NewProductName(string value) => new(value);
+        public static ProductName Create(string value) => new(value);
         public override string ToString() => Value;
     }
 
     public record Description(string Value)
     {
-        public static Description NewDescription(string value) => new(value);
+        public static Description Create(string value) => new(value);
         public override string ToString() => Value;
     }
 
     public record Price(decimal Value)
     {
-        public static Price NewPrice(decimal value) => new(value);
+        public static Price Create(decimal value) => new(value);
         public override string ToString() => Value.ToString("C");
     }
 
     public record ImageHash(string Value)
     {
-        public static ImageHash NewImageHash(string value) => new(value);
+        public static ImageHash Create(string value) => new(value);
         public override string ToString() => Value;
     }
 
     public record StockQuantity(int Value)
     {
-        public static StockQuantity NewStock(int value) => new(value);
+        public static StockQuantity Create(int value) => new(value);
         public override string ToString() => Value.ToString();
     }
 
     public record RegisterDate(DateTime Value)
     {
-        public static RegisterDate NewRegisterDate(DateTime value) => new(value);
+        public static RegisterDate Create(DateTime value) => new(value);
         public static RegisterDate Now => new(DateTime.Now);
         public override string ToString() => Value.ToString("yyyy-MM-dd");
     }
@@ -83,10 +83,10 @@ namespace NerdStore.Catalog.Domain.Entities
         }
 
         public static Product NewProduct(ProductName name, Description description, bool active, Price price, StockQuantity stockQuantity, CategoryId categoryId, ImageHash image, Dimension dimension) =>
-            new(ProductId.NewId, name, description, active, price, stockQuantity, categoryId, RegisterDate.NewRegisterDate(DateTime.Now), image, dimension);
+            new(ProductId.NewId, name, description, active, price, stockQuantity, categoryId, RegisterDate.Create(DateTime.Now), image, dimension);
 
         public static Product Default => 
-            new(ProductId.Empty, ProductName.NewProductName(string.Empty), Description.NewDescription(string.Empty), false, Price.NewPrice(0), StockQuantity.NewStock(0), CategoryId.Empty, RegisterDate.NewRegisterDate(DateTime.MinValue), ImageHash.NewImageHash(string.Empty), Dimension.NewDimension(0, 0, 0));
+            new(ProductId.Empty, ProductName.Create(string.Empty), Description.Create(string.Empty), false, Price.Create(0), StockQuantity.Create(0), CategoryId.Empty, RegisterDate.Create(DateTime.MinValue), ImageHash.Create(string.Empty), Dimension.Create(0, 0, 0));
 
         public void Activate() => Active = true;
 

@@ -54,14 +54,14 @@ namespace NerdStore.Catalog.Domain.Tests
         {
             // Arrange
             var product = Product.NewProduct(
-                ProductName.NewProductName("Product name"),
-                Description.NewDescription("Product description"),
+                ProductName.Create("Product name"),
+                Description.Create("Product description"),
                 true,
-                Price.NewPrice(19.99m),
-                StockQuantity.NewStock(20),
+                Price.Create(19.99m),
+                StockQuantity.Create(20),
                 CategoryId.NewId,
-                ImageHash.NewImageHash("image-hash"),
-                Dimension.NewDimension(10, 10, 10));
+                ImageHash.Create("image-hash"),
+                Dimension.Create(10, 10, 10));
 
             _productRepositoryMock.GetById(product.Id).Returns(product);
             _productRepositoryMock.UnitOfWork.Commit().Returns(true);
@@ -80,14 +80,14 @@ namespace NerdStore.Catalog.Domain.Tests
         {
             // Arrange
             var product = Product.NewProduct(
-                ProductName.NewProductName("Product name"),
-                Description.NewDescription("Product description"),
+                ProductName.Create("Product name"),
+                Description.Create("Product description"),
                 true,
-                Price.NewPrice(19.99m),
-                StockQuantity.NewStock(10),
+                Price.Create(19.99m),
+                StockQuantity.Create(10),
                 CategoryId.NewId,
-                ImageHash.NewImageHash("image-hash"),
-                Dimension.NewDimension(10, 10, 10));
+                ImageHash.Create("image-hash"),
+                Dimension.Create(10, 10, 10));
             
             _productRepositoryMock.GetById(product.Id).Returns(product);
             _productRepositoryMock.UnitOfWork.Commit().Returns(true);

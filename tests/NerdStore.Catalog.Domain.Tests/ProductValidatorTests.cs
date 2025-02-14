@@ -12,14 +12,14 @@ namespace NerdStore.Catalog.Domain.Tests
         {
             // Arrange
             var product = Product.NewProduct(
-                ProductName.NewProductName("Valid name"),
-                Description.NewDescription("Valid description"),
+                ProductName.Create("Valid name"),
+                Description.Create("Valid description"),
                 true,
-                Price.NewPrice(10),
-                StockQuantity.NewStock(10),
+                Price.Create(10),
+                StockQuantity.Create(10),
                 CategoryId.NewId,
-                ImageHash.NewImageHash("validhash"),
-                Dimension.NewDimension(1, 1, 1)
+                ImageHash.Create("validhash"),
+                Dimension.Create(1, 1, 1)
             );
             // Act
             ValidationResult result = product.IsValid();
@@ -32,14 +32,14 @@ namespace NerdStore.Catalog.Domain.Tests
         {
             // Arrange
             var product = Product.NewProduct(
-                ProductName.NewProductName(""),
-                Description.NewDescription("Valid description"),
+                ProductName.Create(""),
+                Description.Create("Valid description"),
                 true,
-                Price.NewPrice(10),
-                StockQuantity.NewStock(10),
+                Price.Create(10),
+                StockQuantity.Create(10),
                 CategoryId.NewId,
-                ImageHash.NewImageHash("validhash"),
-                Dimension.NewDimension(1, 1, 1)
+                ImageHash.Create("validhash"),
+                Dimension.Create(1, 1, 1)
             );
 
             // Act
@@ -55,14 +55,14 @@ namespace NerdStore.Catalog.Domain.Tests
         {
             // Arrange
             var product = Product.NewProduct(
-                ProductName.NewProductName("Valid name"),
-                Description.NewDescription(""),
+                ProductName.Create("Valid name"),
+                Description.Create(""),
                 true,
-                Price.NewPrice(10),
-                StockQuantity.NewStock(10),
+                Price.Create(10),
+                StockQuantity.Create(10),
                 CategoryId.NewId,
-                ImageHash.NewImageHash("validhash"),
-                Dimension.NewDimension(1, 1, 1)
+                ImageHash.Create("validhash"),
+                Dimension.Create(1, 1, 1)
             );
 
             // Act
@@ -78,14 +78,14 @@ namespace NerdStore.Catalog.Domain.Tests
         {
             // Arrange
             var product = Product.NewProduct(
-                ProductName.NewProductName("Valid name"),
-                Description.NewDescription("Valid description"),
+                ProductName.Create("Valid name"),
+                Description.Create("Valid description"),
                 true,
-                Price.NewPrice(-1),
-                StockQuantity.NewStock(10),
+                Price.Create(-1),
+                StockQuantity.Create(10),
                 CategoryId.NewId,
-                ImageHash.NewImageHash("validhash"),
-                Dimension.NewDimension(1, 1, 1)
+                ImageHash.Create("validhash"),
+                Dimension.Create(1, 1, 1)
             );
 
             // Act
@@ -101,14 +101,14 @@ namespace NerdStore.Catalog.Domain.Tests
         {
             // Arrange
             var product = Product.NewProduct(
-                ProductName.NewProductName("Valid name"),
-                Description.NewDescription("Valid description"),
+                ProductName.Create("Valid name"),
+                Description.Create("Valid description"),
                 true,
-                Price.NewPrice(10),
-                StockQuantity.NewStock(10),
+                Price.Create(10),
+                StockQuantity.Create(10),
                 CategoryId.NewId,
-                ImageHash.NewImageHash(""),
-                Dimension.NewDimension(1, 1, 1)
+                ImageHash.Create(""),
+                Dimension.Create(1, 1, 1)
             );
 
             // Act
@@ -124,14 +124,14 @@ namespace NerdStore.Catalog.Domain.Tests
         {
             // Arrange
             var product = Product.NewProduct(
-                ProductName.NewProductName("Valid name"),
-                Description.NewDescription("Valid description"),
+                ProductName.Create("Valid name"),
+                Description.Create("Valid description"),
                 true,
-                Price.NewPrice(10),
-                StockQuantity.NewStock(10),
+                Price.Create(10),
+                StockQuantity.Create(10),
                 CategoryId.NewId,
-                ImageHash.NewImageHash("validhash"),
-                Dimension.NewDimension(1, 1, 1)
+                ImageHash.Create("validhash"),
+                Dimension.Create(1, 1, 1)
             );
 
             // Assert
@@ -143,14 +143,14 @@ namespace NerdStore.Catalog.Domain.Tests
         {
             // Arrange
             var product = Product.NewProduct(
-                ProductName.NewProductName("Valid name"),
-                Description.NewDescription("Valid description"),
+                ProductName.Create("Valid name"),
+                Description.Create("Valid description"),
                 true,
-                Price.NewPrice(10),
-                StockQuantity.NewStock(10),
+                Price.Create(10),
+                StockQuantity.Create(10),
                 CategoryId.Empty,
-                ImageHash.NewImageHash("validhash"),
-                Dimension.NewDimension(1, 1, 1)
+                ImageHash.Create("validhash"),
+                Dimension.Create(1, 1, 1)
             );
 
             // Act
@@ -166,14 +166,14 @@ namespace NerdStore.Catalog.Domain.Tests
         {
             // Arrange
             var product = Product.NewProduct(
-                ProductName.NewProductName("Valid name"),
-                Description.NewDescription("Valid description"),
+                ProductName.Create("Valid name"),
+                Description.Create("Valid description"),
                 true,
-                Price.NewPrice(10),
-                StockQuantity.NewStock(10),
+                Price.Create(10),
+                StockQuantity.Create(10),
                 CategoryId.NewId,
-                ImageHash.NewImageHash("validhash"),
-                Dimension.NewDimension(0, 1, 1)
+                ImageHash.Create("validhash"),
+                Dimension.Create(0, 1, 1)
             );
             // Act
             ValidationResult result = product.IsValid();
@@ -187,14 +187,14 @@ namespace NerdStore.Catalog.Domain.Tests
         {
             // Arrange
             var product = Product.NewProduct(
-                ProductName.NewProductName("Valid name"),
-                Description.NewDescription("Valid description"),
+                ProductName.Create("Valid name"),
+                Description.Create("Valid description"),
                 true,
-                Price.NewPrice(10),
-                StockQuantity.NewStock(10),
+                Price.Create(10),
+                StockQuantity.Create(10),
                 CategoryId.NewId,
-                ImageHash.NewImageHash("validhash"),
-                Dimension.NewDimension(1, 0, 1)
+                ImageHash.Create("validhash"),
+                Dimension.Create(1, 0, 1)
             );
             // Act
             ValidationResult result = product.IsValid();
@@ -208,14 +208,14 @@ namespace NerdStore.Catalog.Domain.Tests
         {
             // Arrange
             var product = Product.NewProduct(
-                ProductName.NewProductName("Valid name"),
-                Description.NewDescription("Valid description"),
+                ProductName.Create("Valid name"),
+                Description.Create("Valid description"),
                 true,
-                Price.NewPrice(10),
-                StockQuantity.NewStock(10),
+                Price.Create(10),
+                StockQuantity.Create(10),
                 CategoryId.NewId,
-                ImageHash.NewImageHash("validhash"),
-                Dimension.NewDimension(1, 1, 0)
+                ImageHash.Create("validhash"),
+                Dimension.Create(1, 1, 0)
             );
             // Act
             ValidationResult result = product.IsValid();

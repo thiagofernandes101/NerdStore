@@ -31,7 +31,7 @@ namespace NerdStore.Catalog.Domain.ValueObjects
             Depth = depth;
         }
 
-        public static Dimension NewDimension(decimal height, decimal width, decimal depth)
+        public static Dimension Create(decimal height, decimal width, decimal depth)
         {
             var dimension = new Dimension(
                 Height.NewHeight(height),

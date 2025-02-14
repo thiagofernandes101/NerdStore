@@ -11,15 +11,15 @@ namespace NerdStore.Catalog.Application.AutoMapper
         public DtoToDomainEntityMappingProfile() 
         {
             CreateMap<ProductDto, Product>()
-                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => ProductName.NewProductName(src.Name.Value)))
-                .ForMember(dest => dest.Description, opt => opt.MapFrom(src => Description.NewDescription(src.Description.Value)))
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => ProductName.Create(src.Name.Value)))
+                .ForMember(dest => dest.Description, opt => opt.MapFrom(src => Description.Create(src.Description.Value)))
                 .ForMember(dest => dest.Active, opt => opt.MapFrom(src => src.Active))
-                .ForMember(dest => dest.Price, opt => opt.MapFrom(src => Price.NewPrice(src.Price.Value)))
+                .ForMember(dest => dest.Price, opt => opt.MapFrom(src => Price.Create(src.Price.Value)))
                 .ForMember(dest => dest.CategoryId, opt => opt.MapFrom(src => src.CategoryId.Value))
-                .ForMember(dest => dest.RegisterDate, opt => opt.MapFrom(src => RegisterDate.NewRegisterDate(src.RegisterDate.Value)))
-                .ForMember(dest => dest.Image, opt => opt.MapFrom(src => ImageHash.NewImageHash(src.Image.Value)))
-                .ForMember(dest => dest.StockQuantity, opt => opt.MapFrom(src => StockQuantity.NewStock(src.StockQuantity.Value)))
-                .ForMember(dest => dest.Dimension, opt => opt.MapFrom(src => Dimension.NewDimension(src.Height.Value, src.Width.Value, src.Depth.Value)));
+                .ForMember(dest => dest.RegisterDate, opt => opt.MapFrom(src => RegisterDate.Create(src.RegisterDate.Value)))
+                .ForMember(dest => dest.Image, opt => opt.MapFrom(src => ImageHash.Create(src.Image.Value)))
+                .ForMember(dest => dest.StockQuantity, opt => opt.MapFrom(src => StockQuantity.Create(src.StockQuantity.Value)))
+                .ForMember(dest => dest.Dimension, opt => opt.MapFrom(src => Dimension.Create(src.Height.Value, src.Width.Value, src.Depth.Value)));
         }
     }
 }

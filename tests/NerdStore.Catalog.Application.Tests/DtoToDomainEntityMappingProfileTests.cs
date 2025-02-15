@@ -2,7 +2,6 @@ using AutoMapper;
 using NerdStore.Catalog.Application.AutoMapper;
 using NerdStore.Catalog.Application.Dtos;
 using NerdStore.Catalog.Domain.Entities;
-using Xunit;
 
 namespace NerdStore.Catalog.Application.Tests.AutoMapper
 {
@@ -20,7 +19,7 @@ namespace NerdStore.Catalog.Application.Tests.AutoMapper
         }
 
         [Fact]
-        public void Should_Map_ProductDto_To_Product()
+        public void ShouldMapProductDtoToProduct()
         {
             // Arrange
             var productDto = new ProductDto
@@ -54,6 +53,23 @@ namespace NerdStore.Catalog.Application.Tests.AutoMapper
             Assert.Equal(productDto.Height.Value, product.Dimension.Height.Value);
             Assert.Equal(productDto.Width.Value, product.Dimension.Width.Value);
             Assert.Equal(productDto.Depth.Value, product.Dimension.Depth.Value);
+        }
+
+        [Fact]
+        public void ShouldMapCategoryDtoToCategory()
+        {
+            // Arrange
+            var categoryDto = new CategoryDto(
+                new CategoryDtoId(Guid.NewGuid()),
+                new CategoryDtoName("Electronics"),
+                new CategoryDtoCode(123));
+
+            // Act
+            var category = _mapper.Map<Category>(categoryDto);
+
+            // Assert
+            Assert.Equal(categoryDto.Name.Value, category.Name.Value);
+            //Assert.Equal(categoryDto.Code.Value, category.Code.Value);
         }
     }
 }

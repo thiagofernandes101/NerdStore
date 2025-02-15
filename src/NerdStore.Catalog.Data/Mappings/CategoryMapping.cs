@@ -18,12 +18,12 @@ namespace NerdStore.Catalog.Data.Mappings
 
             builder.Property(propertyExpression => propertyExpression.Name)
                 .IsRequired()
-                .HasConversion(name => name.Value, value => new CategoryName(value))
+                .HasConversion(name => name.Value, value => CategoryName.Create(value))
                 .HasColumnType("varchar(250)");
 
             builder.Property(property => property.Code)
                 .IsRequired()
-                .HasConversion(code => code.Value, value => new CategoryCode(value))
+                .HasConversion(code => code.Value, value => CategoryCode.Create(value))
                 .HasColumnType("int");
 
             builder.HasMany(category => category.Products)

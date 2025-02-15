@@ -18,32 +18,32 @@ namespace NerdStore.Catalog.Data.Mappings
 
             builder.Property(property => property.Name)
                 .IsRequired()
-                .HasConversion(name => name.Value, value => Name.Create(value))
+                .HasConversion(name => name.Value, value => ProductName.Create(value))
                 .HasColumnType("varchar(250)");
 
             builder.Property(property => property.Description)
                 .IsRequired()
-                .HasConversion(description => description.Value, value => Description.Create(value))
+                .HasConversion(description => description.Value, value => ProductDescription.Create(value))
                 .HasColumnType("varchar(500)");
 
             builder.Property(property => property.Image)
                 .IsRequired()
-                .HasConversion(image => image.Value, value => ImageHash.Create(value))
+                .HasConversion(image => image.Value, value => ProductImageHash.Create(value))
                 .HasColumnType("varchar(250)");
 
             builder.Property(property => property.Price)
                 .IsRequired()
-                .HasConversion(price => price.Value, value => Price.Create(value))
+                .HasConversion(price => price.Value, value => ProductPrice.Create(value))
                 .HasColumnType("decimal(10,2)");
 
             builder.Property(builder => builder.RegisterDate)
                 .IsRequired()
-                .HasConversion(registerDate => registerDate.Value, value => RegisterDate.Create(value))
+                .HasConversion(registerDate => registerDate.Value, value => ProductRegisterDate.Create(value))
                 .HasColumnType("datetime");
 
             builder.Property(property => property.StockQuantity)
                 .IsRequired()
-                .HasConversion(stock => stock.Value, value => StockQuantity.Create(value))
+                .HasConversion(stock => stock.Value, value => ProductStockQuantity.Create(value))
                 .HasColumnType("int");
 
             builder.HasOne(p => p.Category)

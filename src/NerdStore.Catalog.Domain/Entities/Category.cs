@@ -6,6 +6,7 @@ namespace NerdStore.Catalog.Domain.Entities
     {
         public static CategoryId Empty => new(Guid.Empty);
         public static CategoryId NewId => new(Guid.NewGuid());
+        public static CategoryId From(Guid value) => new(value);
         public override string ToString() => Value.ToString();
     }
 
@@ -13,13 +14,9 @@ namespace NerdStore.Catalog.Domain.Entities
     {
         public string Value { get; }
 
-        public CategoryName(string value)
-        {
-            if (string.IsNullOrWhiteSpace(value))
-                throw new ArgumentException("Category name cannot be empty.", nameof(value));
+        private CategoryName(string value) => Value = value;
 
-            Value = value;
-        }
+        public static CategoryName Create(string value) => new(value);
 
         public override string ToString() => Value;
     }
@@ -28,13 +25,9 @@ namespace NerdStore.Catalog.Domain.Entities
     {
         public int Value { get; }
 
-        public CategoryCode(int value)
-        {
-            if (value <= 0)
-                throw new ArgumentException("Category code must be greater than zero.", nameof(value));
+        private CategoryCode(int value) => Value = value;
 
-            Value = value;
-        }
+        public static CategoryCode Create(int value) => new(value);
 
         public override string ToString() => Value.ToString();
     }
@@ -44,21 +37,26 @@ namespace NerdStore.Catalog.Domain.Entities
         public CategoryName Name { get; private set; }
         public CategoryCode Code { get; private set; }
 
-        // EF Relation
-        public List<Product> Products { get; set; }
+        [Obsolete("EF Core relation only.")]
+        public List<Product> Products { get; set; } = [];
 
-        // Parameterless constructor for EF Core
+        [Obsolete("Parameterless constructor is for EF Core and mapping only.")]
         public Category() { }
 
-        private Category(CategoryId id, CategoryName name, CategoryCode code) : base(id)
+        private Category(
+            CategoryId id,
+            CategoryName name,
+            CategoryCode code) : base(id)
         {
             Name = name;
             Code = code;
         }
 
-        public static Category NewCategory(CategoryName name, CategoryCode code) =>
-            new(CategoryId.NewId, name, code);
+        public static Category Create(string name, int code) =>
+            new(CategoryId.NewId, CategoryName.Create(name), CategoryCode.Create(code));
 
+        public static Category None =>
+            new Category(CategoryId.NewId, CategoryName.Create("None"), CategoryCode.Create(0));
         public override string ToString() => $"{Name} - {Code}";
     }
 }

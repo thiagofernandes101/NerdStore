@@ -3,7 +3,7 @@ using NerdStore.Catalog.Domain.ValueObjects;
 
 namespace NerdStore.Catalog.Domain.Validations
 {
-    public class DimensionValidator : AbstractValidator<Dimension>
+    public class DimensionValidator : AbstractValidator<ProductDimension>
     {
         public DimensionValidator()
         {

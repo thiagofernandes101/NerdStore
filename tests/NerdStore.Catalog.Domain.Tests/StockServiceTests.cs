@@ -53,13 +53,12 @@ namespace NerdStore.Catalog.Domain.Tests
         public async Task DebitStock_ShouldReturnTrue_WhenProductHasSufficientStock()
         {
             // Arrange
-            var product = Product.Create(
+            var product = Product.CreateProductWithoutCategory(
                 "Product name",
                 "Product description",
                 true,
                 19.99m,
                 20,
-                CategoryId.NewId,
                 "image-hash",
                 10, 
                 10, 
@@ -81,13 +80,12 @@ namespace NerdStore.Catalog.Domain.Tests
         public async Task DebitStock_ShouldPublishLowStockEvent_WhenStockBelowThreshold()
         {
             // Arrange
-            var product = Product.Create(
+            var product = Product.CreateProductWithoutCategory(
                 "Product name",
                 "Product description",
                 true,
                 19.99m,
                 10,
-                CategoryId.NewId,
                 "image-hash",
                 10, 
                 10, 10);

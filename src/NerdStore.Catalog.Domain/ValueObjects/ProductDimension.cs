@@ -16,7 +16,7 @@ namespace NerdStore.Catalog.Domain.ValueObjects
         public static Depth NewDepth(decimal value) => new(value);
     }
 
-    public class Dimension
+    public class ProductDimension
     {
         public Height Height { get; private set; }
         public Width Width { get; private set; }
@@ -24,16 +24,16 @@ namespace NerdStore.Catalog.Domain.ValueObjects
 
         private static readonly DimensionValidator _dimensionValidator = new();
 
-        private Dimension(Height height, Width width, Depth depth)
+        private ProductDimension(Height height, Width width, Depth depth)
         {
             Height = height;
             Width = width;
             Depth = depth;
         }
 
-        public static Dimension Create(decimal height, decimal width, decimal depth)
+        public static ProductDimension Create(decimal height, decimal width, decimal depth)
         {
-            var dimension = new Dimension(
+            var dimension = new ProductDimension(
                 Height.NewHeight(height),
                 Width.NewWidth(width),
                 Depth.NewDepth(depth)

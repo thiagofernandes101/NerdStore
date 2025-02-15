@@ -7,19 +7,40 @@ namespace NerdStore.Catalog.Domain.Tests
     public class ProductValidatorTests
     {
         [Fact]
-        public void ProductValidator_ShouldReturnValidForCorrectProduct()
+        public void ProductValidator_ShouldReturnValidForCorrectProductWithoutCategory()
         {
             // Arrange
-            var product = Product.Create(
+            var product = Product.CreateProductWithoutCategory(
                 "Valid name",
                 "Valid description",
                 true,
                 10,
                 10,
-                CategoryId.NewId,
                 "validhash",
-                1, 
-                1, 
+                1,
+                1,
+                1
+            );
+            // Act
+            ValidationResult result = product.IsValid();
+            // Assert
+            Assert.True(result.IsValid);
+        }
+
+        [Fact]
+        public void ProductValidator_ShouldReturnValidForCorrectProductWithCategory()
+        {
+            // Arrange
+            var product = Product.CreateProduct(
+                "Valid name",
+                "Valid description",
+                true,
+                10,
+                10,
+                Category.Create("category", 1),
+                "validhash",
+                1,
+                1,
                 1
             );
             // Act
@@ -32,13 +53,12 @@ namespace NerdStore.Catalog.Domain.Tests
         public void ProductValidator_ShouldReturnErrorForEmptyProductName()
         {
             // Arrange
-            var product = Product.Create(
+            var product = Product.CreateProductWithoutCategory(
                 "",
                 "Valid description",
                 true,
                 10,
                 10,
-                CategoryId.NewId,
                 "validhash",
                 1, 
                 1, 
@@ -57,13 +77,12 @@ namespace NerdStore.Catalog.Domain.Tests
         public void ProductValidator_ShouldReturnErrorForEmptyDescription()
         {
             // Arrange
-            var product = Product.Create(
+            var product = Product.CreateProductWithoutCategory(
                 "Valid name",
                 "",
                 true,
                 10,
                 10,
-                CategoryId.NewId,
                 "validhash",
                 1, 
                 1, 
@@ -82,13 +101,12 @@ namespace NerdStore.Catalog.Domain.Tests
         public void ProductValidator_ShouldReturnErrorForNegativePrice()
         {
             // Arrange
-            var product = Product.Create(
+            var product = Product.CreateProductWithoutCategory(
                 "Valid name",
                 "Valid description",
                 true,
                 -1,
                 10,
-                CategoryId.NewId,
                 "validhash",
                1, 
                1, 
@@ -107,13 +125,12 @@ namespace NerdStore.Catalog.Domain.Tests
         public void ProductValidator_ShouldReturnErrorForEmptyImageHash()
         {
             // Arrange
-            var product = Product.Create(
+            var product = Product.CreateProductWithoutCategory(
                 "Valid name",
                 "Valid description",
                 true,
                 10,
                 10,
-                CategoryId.NewId,
                 "",
                 1, 
                 1, 
@@ -132,13 +149,12 @@ namespace NerdStore.Catalog.Domain.Tests
         public void ProductValidator_ShouldReturnErrorForNegativeStock()
         {
             // Arrange
-            var product = Product.Create(
+            var product = Product.CreateProductWithoutCategory(
                 "Valid name",
                 "Valid description",
                 true,
                 10,
                 10,
-                CategoryId.NewId,
                 "validhash",
                 1, 
                 1, 
@@ -150,41 +166,15 @@ namespace NerdStore.Catalog.Domain.Tests
         }
 
         [Fact]
-        public void ProductValidator_ShouldReturnErrorForEmptyCategoryId()
-        {
-            // Arrange
-            var product = Product.Create(
-                "Valid name",
-                "Valid description",
-                true,
-                10,
-                10,
-                CategoryId.Empty,
-                "validhash",
-                1, 
-                1, 
-                1
-            );
-
-            // Act
-            ValidationResult result = product.IsValid();
-
-            // Assert
-            Assert.False(result.IsValid);
-            Assert.Contains(result.Errors, e => e.ErrorMessage == "Category is required.");
-        }
-
-        [Fact]
         public void ProductValidator_ShouldReturnErrorForInvalidHeight()
         {
             // Arrange
-            var product = Product.Create(
+            var product = Product.CreateProductWithoutCategory(
                 "Valid name",
                 "Valid description",
                 true,
                 10,
                 10,
-                CategoryId.NewId,
                 "validhash",
                 0, 
                 1, 
@@ -201,13 +191,12 @@ namespace NerdStore.Catalog.Domain.Tests
         public void ProductValidator_ShouldReturnErrorForInvalidWidth()
         {
             // Arrange
-            var product = Product.Create(
+            var product = Product.CreateProductWithoutCategory(
                 "Valid name",
                 "Valid description",
                 true,
                 10,
                 10,
-                CategoryId.NewId,
                 "validhash",
                 1, 
                 0, 
@@ -224,13 +213,12 @@ namespace NerdStore.Catalog.Domain.Tests
         public void ProductValidator_ShouldReturnErrorForInvalidDepth()
         {
             // Arrange
-            var product = Product.Create(
+            var product = Product.CreateProductWithoutCategory(
                 "Valid name",
                 "Valid description",
                 true,
                 10,
                 10,
-                CategoryId.NewId,
                 "validhash",
                 1, 
                 1, 

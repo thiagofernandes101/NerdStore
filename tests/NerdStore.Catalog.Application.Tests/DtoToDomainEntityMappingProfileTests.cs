@@ -69,7 +69,7 @@ namespace NerdStore.Catalog.Application.Tests.AutoMapper
 
             // Assert
             Assert.Equal(categoryDto.Name.Value, category.Name.Value);
-            //Assert.Equal(categoryDto.Code.Value, category.Code.Value);
+            Assert.Equal(categoryDto.Code.Value, category.Code.Value);
         }
     }
 }

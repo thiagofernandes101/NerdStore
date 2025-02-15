@@ -6,7 +6,6 @@ namespace NerdStore.Catalog.Domain.Entities
     {
         public static CategoryId Empty => new(Guid.Empty);
         public static CategoryId NewId => new(Guid.NewGuid());
-        public static CategoryId From(Guid value) => new(value);
         public override string ToString() => Value.ToString();
     }
 

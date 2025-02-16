@@ -8,31 +8,31 @@ namespace NerdStore.Catalog.Application.AutoMapper
     {
         public DomainEntityToDtoMappingProfile()
         {
-            CreateMap<Product, ProductDto>()
-            .ConvertUsing(src => new ProductDto(
-                new ProductDtoId(src.Id.Value),
-                new ProductDtoCategoryId(src.CategoryId.Value),
-                new ProductDtoName(src.Name.Value),
-                new ProductDtoDescription(src.Description.Value),
+            CreateMap<Product, ProductViewModel>()
+            .ConvertUsing(src => new ProductViewModel(
+                new Dtos.ProductId(src.Id.Value),
+                new ProductCategoryId(src.CategoryId.Value),
+                new Dtos.ProductName(src.Name.Value),
+                new Dtos.ProductDescription(src.Description.Value),
                 src.Active,
-                new ProductDtoPrice(src.Price.Value),
-                new ProductDtoRegisterDate(src.RegisterDate.Value),
-                new ProductDtoImage(src.Image.Value),
-                new ProductDtoStockQuantity(src.StockQuantity.Value),
-                new ProductDtoHeight((int)src.Dimension.Height.Value),
-                new ProductDtoWidth((int)src.Dimension.Width.Value),
-                new ProductDtoDepth((int)src.Dimension.Depth.Value),
-                new CategoryDto(
-                    new CategoryDtoId(src.CategoryId.Value),
-                    new CategoryDtoName(src.Category.Name.Value),
-                    new CategoryDtoCode(src.Category.Code.Value))
+                new Dtos.ProductPrice(src.Price.Value),
+                new Dtos.ProductRegisterDate(src.RegisterDate.Value),
+                new ProductImage(src.Image.Value),
+                new Dtos.ProductStockQuantity(src.StockQuantity.Value),
+                new ProductHeight((int)src.Dimension.Height.Value),
+                new ProductWidth((int)src.Dimension.Width.Value),
+                new ProductDepth((int)src.Dimension.Depth.Value),
+                new CategoryModel(
+                    new Dtos.CategoryId(src.CategoryId.Value),
+                    new Dtos.CategoryName(src.Category.Name.Value),
+                    new Dtos.CategoryCode(src.Category.Code.Value))
             ));
 
-            CreateMap<Category, CategoryDto>()
-                .ConvertUsing(src => new CategoryDto(
-                    new CategoryDtoId(src.Id.Value),
-                    new CategoryDtoName(src.Name.Value),
-                    new CategoryDtoCode(src.Code.Value)
+            CreateMap<Category, CategoryModel>()
+                .ConvertUsing(src => new CategoryModel(
+                    new Dtos.CategoryId(src.Id.Value),
+                    new Dtos.CategoryName(src.Name.Value),
+                    new Dtos.CategoryCode(src.Code.Value)
                 ));
         }
     }

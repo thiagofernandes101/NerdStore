@@ -22,24 +22,24 @@ namespace NerdStore.Catalog.Application.Tests.AutoMapper
         public void ShouldMapProductDtoToProduct()
         {
             // Arrange
-            var productDto = new ProductDto
+            var productDto = new ProductViewModel
             (
-                new ProductDtoId(Guid.NewGuid()),
-                new ProductDtoCategoryId(Guid.NewGuid()),
-                new ProductDtoName("Test Product"),
-                new ProductDtoDescription("Test Description"),
+                new Dtos.ProductId(Guid.NewGuid()),
+                new ProductCategoryId(Guid.NewGuid()),
+                new Dtos.ProductName("Test Product"),
+                new Dtos.ProductDescription("Test Description"),
                 true,
-                new ProductDtoPrice(19.99m),
-                new ProductDtoRegisterDate(DateTime.Now),
-                new ProductDtoImage("test.jpg"),
-                new ProductDtoStockQuantity(50),
-                new ProductDtoHeight(10),
-                new ProductDtoWidth(10),
-                new ProductDtoDepth(10),
-                new CategoryDto(
-                    new CategoryDtoId(Guid.NewGuid()),
-                    new CategoryDtoName("Electronics"),
-                    new CategoryDtoCode(123))
+                new Dtos.ProductPrice(19.99m),
+                new Dtos.ProductRegisterDate(DateTime.Now),
+                new ProductImage("test.jpg"),
+                new Dtos.ProductStockQuantity(50),
+                new ProductHeight(10),
+                new ProductWidth(10),
+                new ProductDepth(10),
+                new CategoryModel(
+                    new Dtos.CategoryId(Guid.NewGuid()),
+                    new Dtos.CategoryName("Electronics"),
+                    new Dtos.CategoryCode(123))
             );
 
             // Act
@@ -65,10 +65,10 @@ namespace NerdStore.Catalog.Application.Tests.AutoMapper
         public void ShouldMapCategoryDtoToCategory()
         {
             // Arrange
-            var categoryDto = new CategoryDto(
-                new CategoryDtoId(Guid.NewGuid()),
-                new CategoryDtoName("Electronics"),
-                new CategoryDtoCode(123));
+            var categoryDto = new CategoryModel(
+                new Dtos.CategoryId(Guid.NewGuid()),
+                new Dtos.CategoryName("Electronics"),
+                new Dtos.CategoryCode(123));
 
             // Act
             var category = _mapper.Map<Category>(categoryDto);

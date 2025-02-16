@@ -37,7 +37,7 @@ namespace NerdStore.Catalog.Application.Tests
             );
 
             // Act
-            var productDto = _mapper.Map<ProductDto>(product);
+            var productDto = _mapper.Map<ProductViewModel>(product);
 
             // Assert
             Assert.NotNull(productDto);
@@ -61,7 +61,7 @@ namespace NerdStore.Catalog.Application.Tests
             // Arrange
             var category = Category.Create("Test Category", 0);
             // Act
-            var categoryDto = _mapper.Map<CategoryDto>(category);
+            var categoryDto = _mapper.Map<CategoryModel>(category);
             // Assert
             Assert.NotNull(categoryDto);
             Assert.Equal(category.Id.Value, categoryDto.Id.Value);

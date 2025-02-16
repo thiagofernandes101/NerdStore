@@ -35,7 +35,11 @@ namespace NerdStore.Catalog.Application.Tests.AutoMapper
                 new ProductDtoStockQuantity(50),
                 new ProductDtoHeight(10),
                 new ProductDtoWidth(10),
-                new ProductDtoDepth(10)
+                new ProductDtoDepth(10),
+                new CategoryDto(
+                    new CategoryDtoId(Guid.NewGuid()),
+                    new CategoryDtoName("Electronics"),
+                    new CategoryDtoCode(123))
             );
 
             // Act
@@ -53,6 +57,8 @@ namespace NerdStore.Catalog.Application.Tests.AutoMapper
             Assert.Equal(productDto.Height.Value, product.Dimension.Height.Value);
             Assert.Equal(productDto.Width.Value, product.Dimension.Width.Value);
             Assert.Equal(productDto.Depth.Value, product.Dimension.Depth.Value);
+            Assert.Equal(productDto.Category.Name.Value, product.Category.Name.Value);
+            Assert.Equal(productDto.Category.Code.Value, product.Category.Code.Value);
         }
 
         [Fact]

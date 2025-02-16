@@ -21,7 +21,11 @@ namespace NerdStore.Catalog.Application.AutoMapper
                 new ProductDtoStockQuantity(src.StockQuantity.Value),
                 new ProductDtoHeight((int)src.Dimension.Height.Value),
                 new ProductDtoWidth((int)src.Dimension.Width.Value),
-                new ProductDtoDepth((int)src.Dimension.Depth.Value)
+                new ProductDtoDepth((int)src.Dimension.Depth.Value),
+                new CategoryDto(
+                    new CategoryDtoId(src.CategoryId.Value),
+                    new CategoryDtoName(src.Category.Name.Value),
+                    new CategoryDtoCode(src.Category.Code.Value))
             ));
 
             CreateMap<Category, CategoryDto>()

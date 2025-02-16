@@ -16,7 +16,8 @@ namespace NerdStore.Catalog.Application.Dtos
             ProductDtoStockQuantity stockQuantity,
             ProductDtoHeight height,
             ProductDtoWidth width,
-            ProductDtoDepth depth
+            ProductDtoDepth depth,
+            CategoryDto category
         )
         {
             Id = id;
@@ -31,6 +32,7 @@ namespace NerdStore.Catalog.Application.Dtos
             Height = height;
             Width = width;
             Depth = depth;
+            Category = category;
         }
 
         [Key]
@@ -72,6 +74,8 @@ namespace NerdStore.Catalog.Application.Dtos
         [Required(ErrorMessage = "The {0} field is required.")]
         [Range(1, int.MaxValue, ErrorMessage = "The field {0} must have a minimum value of {1}")]
         public ProductDtoDepth Depth { get; init; }
+
+        public CategoryDto Category { get; init; }
     }
 
     public record ProductDtoId(Guid Value);

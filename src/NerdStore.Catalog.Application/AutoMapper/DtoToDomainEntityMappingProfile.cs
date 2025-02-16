@@ -40,7 +40,10 @@ namespace NerdStore.Catalog.Application.AutoMapper
                     opt => opt.MapFrom(src => ProductStockQuantity.Create(src.StockQuantity.Value)))
                 .ForMember(
                     dest => dest.Dimension,
-                    opt => opt.MapFrom(src => ProductDimension.Create(src.Height.Value, src.Width.Value, src.Depth.Value)));
+                    opt => opt.MapFrom(src => ProductDimension.Create(src.Height.Value, src.Width.Value, src.Depth.Value)))
+                .ForMember(
+                    dest => dest.Category,
+                    opt => opt.MapFrom(src => Category.Create(src.Category.Name.Value, src.Category.Code.Value)));
 
             CreateMap<CategoryDto, Category>()
                 .ConstructUsing(_ => new Category())

@@ -3,7 +3,7 @@ using NerdStore.Catalog.Application.AutoMapper;
 using NerdStore.Catalog.Application.Models;
 using NerdStore.Catalog.Domain.Entities;
 
-namespace NerdStore.Catalog.Application.Tests.AutoMapper
+namespace NerdStore.Catalog.Application.Tests.UnitTests
 {
     public class DtoToDomainEntityMappingProfileTests
     {
@@ -26,20 +26,20 @@ namespace NerdStore.Catalog.Application.Tests.AutoMapper
             (
                 new Models.ProductId(Guid.NewGuid()),
                 new ProductCategoryId(Guid.NewGuid()),
-                new Models.ProductName("Test Product"),
-                new Models.ProductDescription("Test Description"),
+                new ProductName("Test Product"),
+                new ProductDescription("Test Description"),
                 true,
-                new Models.ProductPrice(19.99m),
-                new Models.ProductRegisterDate(DateTime.Now),
+                new ProductPrice(19.99m),
+                new ProductRegisterDate(DateTime.Now),
                 new ProductImage("test.jpg"),
-                new Models.ProductStockQuantity(50),
+                new ProductStockQuantity(50),
                 new ProductHeight(10),
                 new ProductWidth(10),
                 new ProductDepth(10),
                 new CategoryModel(
                     new Models.CategoryId(Guid.NewGuid()),
-                    new Models.CategoryName("Electronics"),
-                    new Models.CategoryCode(123))
+                    new CategoryName("Electronics"),
+                    new CategoryCode(123))
             );
 
             // Act
@@ -68,8 +68,8 @@ namespace NerdStore.Catalog.Application.Tests.AutoMapper
             // Arrange
             var categoryDto = new CategoryModel(
                 new Models.CategoryId(Guid.NewGuid()),
-                new Models.CategoryName("Electronics"),
-                new Models.CategoryCode(123));
+                new CategoryName("Electronics"),
+                new CategoryCode(123));
 
             // Act
             var category = _mapper.Map<Category>(categoryDto);

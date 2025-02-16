@@ -3,7 +3,7 @@ using NerdStore.Catalog.Application.AutoMapper;
 using NerdStore.Catalog.Application.Models;
 using NerdStore.Catalog.Domain.Entities;
 
-namespace NerdStore.Catalog.Application.Tests
+namespace NerdStore.Catalog.Application.Tests.UnitTests
 {
     public class DomainEntityToDtoMappingProfileTest
     {

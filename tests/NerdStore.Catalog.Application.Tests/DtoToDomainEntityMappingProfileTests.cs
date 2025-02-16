@@ -1,6 +1,6 @@
 using AutoMapper;
 using NerdStore.Catalog.Application.AutoMapper;
-using NerdStore.Catalog.Application.Dtos;
+using NerdStore.Catalog.Application.Models;
 using NerdStore.Catalog.Domain.Entities;
 
 namespace NerdStore.Catalog.Application.Tests.AutoMapper
@@ -24,22 +24,22 @@ namespace NerdStore.Catalog.Application.Tests.AutoMapper
             // Arrange
             var productDto = new ProductViewModel
             (
-                new Dtos.ProductId(Guid.NewGuid()),
+                new Models.ProductId(Guid.NewGuid()),
                 new ProductCategoryId(Guid.NewGuid()),
-                new Dtos.ProductName("Test Product"),
-                new Dtos.ProductDescription("Test Description"),
+                new Models.ProductName("Test Product"),
+                new Models.ProductDescription("Test Description"),
                 true,
-                new Dtos.ProductPrice(19.99m),
-                new Dtos.ProductRegisterDate(DateTime.Now),
+                new Models.ProductPrice(19.99m),
+                new Models.ProductRegisterDate(DateTime.Now),
                 new ProductImage("test.jpg"),
-                new Dtos.ProductStockQuantity(50),
+                new Models.ProductStockQuantity(50),
                 new ProductHeight(10),
                 new ProductWidth(10),
                 new ProductDepth(10),
                 new CategoryModel(
-                    new Dtos.CategoryId(Guid.NewGuid()),
-                    new Dtos.CategoryName("Electronics"),
-                    new Dtos.CategoryCode(123))
+                    new Models.CategoryId(Guid.NewGuid()),
+                    new Models.CategoryName("Electronics"),
+                    new Models.CategoryCode(123))
             );
 
             // Act
@@ -47,6 +47,7 @@ namespace NerdStore.Catalog.Application.Tests.AutoMapper
 
             // Assert
             Assert.NotNull(product);
+            Assert.Equal(productDto.Id.Value, product.Id.Value);
             Assert.Equal(productDto.Name.Value, product.Name.Value);
             Assert.Equal(productDto.Description.Value, product.Description.Value);
             Assert.Equal(productDto.Active, product.Active);
@@ -66,14 +67,16 @@ namespace NerdStore.Catalog.Application.Tests.AutoMapper
         {
             // Arrange
             var categoryDto = new CategoryModel(
-                new Dtos.CategoryId(Guid.NewGuid()),
-                new Dtos.CategoryName("Electronics"),
-                new Dtos.CategoryCode(123));
+                new Models.CategoryId(Guid.NewGuid()),
+                new Models.CategoryName("Electronics"),
+                new Models.CategoryCode(123));
 
             // Act
             var category = _mapper.Map<Category>(categoryDto);
 
             // Assert
+            Assert.NotNull(category);
+            Assert.Equal(categoryDto.Id.Value, category.Id.Value);
             Assert.Equal(categoryDto.Name.Value, category.Name.Value);
             Assert.Equal(categoryDto.Code.Value, category.Code.Value);
         }

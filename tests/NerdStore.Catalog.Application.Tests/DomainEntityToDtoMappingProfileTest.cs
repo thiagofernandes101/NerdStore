@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using NerdStore.Catalog.Application.AutoMapper;
-using NerdStore.Catalog.Application.Dtos;
+using NerdStore.Catalog.Application.Models;
 using NerdStore.Catalog.Domain.Entities;
 
 namespace NerdStore.Catalog.Application.Tests

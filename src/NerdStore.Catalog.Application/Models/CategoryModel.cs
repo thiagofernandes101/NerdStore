@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace NerdStore.Catalog.Application.Dtos
+namespace NerdStore.Catalog.Application.Models
 {
     public record CategoryModel
     {

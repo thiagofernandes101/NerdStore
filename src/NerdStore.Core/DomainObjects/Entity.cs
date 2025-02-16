@@ -1,6 +1,4 @@
-﻿using System.Security.Cryptography;
-
-namespace NerdStore.Core.DomainObjects
+﻿namespace NerdStore.Core.DomainObjects
 {
     public abstract class Entity<TId> where TId : notnull
     {
@@ -12,7 +10,7 @@ namespace NerdStore.Core.DomainObjects
             Id = id ?? throw new ArgumentNullException(nameof(id));
         }
 
-        public TId Id { get; }
+        public TId Id { get; private set; }
 
         public override bool Equals(object? obj) =>
             ReferenceEquals(this, obj) || obj is Entity<TId> other && Id.Equals(other.Id);

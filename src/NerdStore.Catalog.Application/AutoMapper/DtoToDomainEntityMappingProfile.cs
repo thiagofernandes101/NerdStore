@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using NerdStore.Catalog.Application.Dtos;
-using NerdStore.Catalog.Domain.Entities;
+using NerdStore.Catalog.Application.Models;
 using NerdStore.Catalog.Domain.ValueObjects;
+using Entity = NerdStore.Catalog.Domain.Entities;
 
 namespace NerdStore.Catalog.Application.AutoMapper
 {
@@ -9,47 +9,47 @@ namespace NerdStore.Catalog.Application.AutoMapper
     {
         public DtoToDomainEntityMappingProfile()
         {
-            CreateMap<ProductViewModel, Product>()
-                .ConstructUsing(_ => new Product())
+            CreateMap<ProductViewModel, Entity.Product>()
+                .ConstructUsing(_ => new Entity.Product())
                 .ForMember(
                     dest => dest.Id,
-                    opt => opt.Ignore())
+                    opt => opt.MapFrom(src => Entity.ProductId.CreateFrom(src.Id.Value)))
                 .ForMember(
                     dest => dest.Name,
-                    opt => opt.MapFrom(src => Domain.Entities.ProductName.Create(src.Name.Value)))
+                    opt => opt.MapFrom(src => Entity.ProductName.Create(src.Name.Value)))
                 .ForMember(
                     dest => dest.Description,
-                    opt => opt.MapFrom(src => Domain.Entities.ProductDescription.Create(src.Description.Value)))
+                    opt => opt.MapFrom(src => Entity.ProductDescription.Create(src.Description.Value)))
                 .ForMember(
                     dest => dest.Active,
                     opt => opt.MapFrom(src => src.Active))
                 .ForMember(
                     dest => dest.Price,
-                    opt => opt.MapFrom(src => Domain.Entities.ProductPrice.Create(src.Price.Value)))
+                    opt => opt.MapFrom(src => Entity.ProductPrice.Create(src.Price.Value)))
                 .ForMember(
                     dest => dest.CategoryId,
                     opt => opt.MapFrom(src => src.CategoryId.Value))
                 .ForMember(
                     dest => dest.RegisterDate,
-                    opt => opt.MapFrom(src => Domain.Entities.ProductRegisterDate.Create(src.RegisterDate.Value)))
+                    opt => opt.MapFrom(src => Entity.ProductRegisterDate.Create(src.RegisterDate.Value)))
                 .ForMember(
                     dest => dest.Image,
-                    opt => opt.MapFrom(src => ProductImageHash.Create(src.Image.Value)))
+                    opt => opt.MapFrom(src => Entity.ProductImageHash.Create(src.Image.Value)))
                 .ForMember(
                     dest => dest.StockQuantity,
-                    opt => opt.MapFrom(src => Domain.Entities.ProductStockQuantity.Create(src.StockQuantity.Value)))
+                    opt => opt.MapFrom(src => Entity.ProductStockQuantity.Create(src.StockQuantity.Value)))
                 .ForMember(
                     dest => dest.Dimension,
                     opt => opt.MapFrom(src => ProductDimension.Create(src.Height.Value, src.Width.Value, src.Depth.Value)))
                 .ForMember(
                     dest => dest.Category,
-                    opt => opt.MapFrom(src => Category.Create(src.Category.Name.Value, src.Category.Code.Value)));
+                    opt => opt.MapFrom(src => Entity.Category.Create(src.Category.Name.Value, src.Category.Code.Value)));
 
-            CreateMap<CategoryModel, Category>()
-                .ConstructUsing(_ => new Category())
+            CreateMap<CategoryModel, Entity.Category>()
+                .ConstructUsing(_ => new Entity.Category())
                 .ForMember(
                     dest => dest.Id,
-                    opt => opt.Ignore())
+                    opt => opt.MapFrom(src => Entity.CategoryId.CreateFrom(src.Id.Value)))
                 .ForMember(
                     dest => dest.Name,
                     opt => opt.MapFrom(src => Domain.Entities.CategoryName.Create(src.Name.Value)))

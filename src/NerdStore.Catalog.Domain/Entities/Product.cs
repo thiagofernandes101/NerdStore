@@ -10,6 +10,7 @@ namespace NerdStore.Catalog.Domain.Entities
     {
         public static ProductId NewId => new(Guid.NewGuid());
         public static ProductId Empty => new(Guid.Empty);
+        public static ProductId CreateFrom(Guid id) => new(id);
 
         public override string ToString() => Value.ToString();
     }
@@ -116,14 +117,14 @@ namespace NerdStore.Catalog.Domain.Entities
             int width,
             int depth) =>
             new(
-                ProductId.NewId, 
+                ProductId.NewId,
                 ProductName.Create(name),
-                ProductDescription.Create(description), 
-                active, 
-                ProductPrice.Create(price), 
-                ProductStockQuantity.Create(stockQuantity), 
+                ProductDescription.Create(description),
+                active,
+                ProductPrice.Create(price),
+                ProductStockQuantity.Create(stockQuantity),
                 Category.None,
-                ProductRegisterDate.Create(DateTime.Now), 
+                ProductRegisterDate.Create(DateTime.Now),
                 ProductImageHash.Create(image),
                 ProductDimension.Create(height, width, depth));
 
@@ -150,17 +151,17 @@ namespace NerdStore.Catalog.Domain.Entities
                 ProductImageHash.Create(image),
                 ProductDimension.Create(height, width, depth));
 
-        public static Product Default => 
+        public static Product Default =>
             new(
-                ProductId.Empty, 
-                ProductName.Create(string.Empty), 
-                ProductDescription.Create(string.Empty), 
-                false, 
-                ProductPrice.Create(0), 
+                ProductId.Empty,
+                ProductName.Create(string.Empty),
+                ProductDescription.Create(string.Empty),
+                false,
+                ProductPrice.Create(0),
                 ProductStockQuantity.Create(0),
-                Category.None, 
-                ProductRegisterDate.Create(DateTime.MinValue), 
-                ProductImageHash.Create(string.Empty), 
+                Category.None,
+                ProductRegisterDate.Create(DateTime.MinValue),
+                ProductImageHash.Create(string.Empty),
                 ProductDimension.Create(0, 0, 0));
 
         public void Activate() => Active = true;
@@ -173,7 +174,7 @@ namespace NerdStore.Catalog.Domain.Entities
             CategoryId = category.Id;
         }
 
-        public void ChagneDescription(string description) => 
+        public void ChagneDescription(string description) =>
             Description = ProductDescription.Create(description);
 
         public void DebitStock(int quantity)

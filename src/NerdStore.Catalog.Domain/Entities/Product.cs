@@ -15,55 +15,6 @@ namespace NerdStore.Catalog.Domain.Entities
         public override string ToString() => Value.ToString();
     }
 
-    public record ProductName
-    {
-        public string Value { get; }
-        private ProductName(string value) => Value = value;
-        public static ProductName Create(string value) => new(value);
-        public override string ToString() => Value;
-    }
-
-    public record ProductDescription
-    {
-        public string Value { get; }
-        private ProductDescription(string value) => Value = value;
-        public static ProductDescription Create(string value) => new(value);
-        public override string ToString() => Value;
-    }
-
-    public record ProductPrice
-    {
-        public decimal Value { get; }
-        private ProductPrice(decimal value) => Value = value;
-        public static ProductPrice Create(decimal value) => new(value);
-        public override string ToString() => Value.ToString("C");
-    }
-
-    public record ProductImageHash
-    {
-        public string Value { get; }
-        private ProductImageHash(string value) => Value = value;
-        public static ProductImageHash Create(string value) => new(value);
-        public override string ToString() => Value;
-    }
-
-    public record ProductStockQuantity
-    {
-        public int Value { get; }
-        private ProductStockQuantity(int value) => Value = value;
-        public static ProductStockQuantity Create(int value) => new(value);
-        public override string ToString() => Value.ToString();
-    }
-
-    public record ProductRegisterDate
-    {
-        public DateTime Value { get; }
-        private ProductRegisterDate(DateTime value) => Value = value;
-        public static ProductRegisterDate Create(DateTime value) => new(value);
-        public static ProductRegisterDate Now => new(DateTime.Now);
-        public override string ToString() => Value.ToString("yyyy-MM-dd");
-    }
-
     public class Product : Entity<ProductId>, IAggregateRoot
     {
         public CategoryId CategoryId { get; private set; }

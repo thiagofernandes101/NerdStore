@@ -1,4 +1,5 @@
-﻿using NerdStore.Core.DomainObjects;
+﻿using NerdStore.Catalog.Domain.ValueObjects;
+using NerdStore.Core.DomainObjects;
 
 namespace NerdStore.Catalog.Domain.Entities
 {
@@ -7,28 +8,6 @@ namespace NerdStore.Catalog.Domain.Entities
         public static CategoryId Empty => new(Guid.Empty);
         public static CategoryId NewId => new(Guid.NewGuid());
         public static CategoryId CreateFrom(Guid id) => new(id);
-        public override string ToString() => Value.ToString();
-    }
-
-    public record CategoryName
-    {
-        public string Value { get; }
-
-        private CategoryName(string value) => Value = value;
-
-        public static CategoryName Create(string value) => new(value);
-
-        public override string ToString() => Value;
-    }
-
-    public record CategoryCode
-    {
-        public int Value { get; }
-
-        private CategoryCode(int value) => Value = value;
-
-        public static CategoryCode Create(int value) => new(value);
-
         public override string ToString() => Value.ToString();
     }
 

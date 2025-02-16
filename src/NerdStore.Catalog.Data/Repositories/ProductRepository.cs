@@ -2,6 +2,7 @@
 using NerdStore.Catalog.Data.Contexts;
 using NerdStore.Catalog.Domain.Entities;
 using NerdStore.Catalog.Domain.Repositories;
+using NerdStore.Catalog.Domain.ValueObjects;
 using NerdStore.Core.Data;
 
 namespace NerdStore.Catalog.Data.Repositories

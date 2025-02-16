@@ -1,4 +1,4 @@
-﻿using NerdStore.Catalog.Domain.Entities;
+﻿using NerdStore.Catalog.Domain.ValueObjects;
 using NerdStore.Core.DomainObjects;
 
 namespace NerdStore.Catalog.Domain.Events

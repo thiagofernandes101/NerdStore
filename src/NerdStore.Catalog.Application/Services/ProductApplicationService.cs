@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using NerdStore.Catalog.Domain.Repositories;
 using NerdStore.Catalog.Domain.Services;
+using NerdStore.Catalog.Domain.ValueObjects;
 using ApplicationModel = NerdStore.Catalog.Application.Models;
 using Entity = NerdStore.Catalog.Domain.Entities;
 
@@ -53,7 +54,7 @@ namespace NerdStore.Catalog.Application.Services
 
         public async Task<IEnumerable<ApplicationModel.ProductViewModel>> GetByCategory(ApplicationModel.CategoryCode code)
         {
-            var mappedCode = _mapper.Map<Entity.CategoryCode>(code);
+            var mappedCode = _mapper.Map<CategoryCode>(code);
             var products = await _productRepository.GetByCategory(mappedCode);
             return _mapper.Map<IEnumerable<ApplicationModel.ProductViewModel>>(products);
         }

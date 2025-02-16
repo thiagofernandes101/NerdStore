@@ -1,4 +1,5 @@
 ﻿using NerdStore.Catalog.Domain.Entities;
+using NerdStore.Catalog.Domain.ValueObjects;
 using NerdStore.Core.Data;
 
 namespace NerdStore.Catalog.Domain.Repositories

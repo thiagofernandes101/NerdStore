@@ -2,7 +2,6 @@ using NerdStore.Catalog.Domain.Entities;
 using NerdStore.Catalog.Domain.Events;
 using NerdStore.Catalog.Domain.Repositories;
 using NerdStore.Catalog.Domain.Services;
-using NerdStore.Catalog.Domain.ValueObjects;
 using NerdStore.Core.Bus;
 using NSubstitute;
 
@@ -32,7 +31,8 @@ namespace NerdStore.Catalog.Domain.Tests
             var result = await _stockService.DebitStock(productId, 1);
 
             // Assert
-            Assert.False(result);
+            Assert.False(result.IsSuccess);
+            Assert.Equal("Insufficient stock or the product was not found.", result.Error);
         }
 
         [Fact]
@@ -46,7 +46,8 @@ namespace NerdStore.Catalog.Domain.Tests
             var result = await _stockService.DebitStock(product.Id, 1);
 
             // Assert
-            Assert.False(result);
+            Assert.False(result.IsSuccess);
+            Assert.Equal("Insufficient stock or the product was not found.", result.Error);
         }
 
         [Fact]
@@ -60,8 +61,8 @@ namespace NerdStore.Catalog.Domain.Tests
                 19.99m,
                 20,
                 "image-hash",
-                10, 
-                10, 
+                10,
+                10,
                 10);
 
             _productRepositoryMock.GetById(product.Id).Returns(product);
@@ -71,7 +72,8 @@ namespace NerdStore.Catalog.Domain.Tests
             var result = await _stockService.DebitStock(product.Id, 1);
 
             // Assert
-            Assert.True(result);
+            Assert.True(result.IsSuccess);
+            Assert.Equal(product, result.Value);
             await _productRepositoryMock.Received(1).Update(product);
             await _productRepositoryMock.UnitOfWork.Received(1).Commit();
         }
@@ -87,9 +89,9 @@ namespace NerdStore.Catalog.Domain.Tests
                 19.99m,
                 10,
                 "image-hash",
-                10, 
+                10,
                 10, 10);
-            
+
             _productRepositoryMock.GetById(product.Id).Returns(product);
             _productRepositoryMock.UnitOfWork.Commit().Returns(true);
 
@@ -97,7 +99,7 @@ namespace NerdStore.Catalog.Domain.Tests
             var result = await _stockService.DebitStock(product.Id, 1);
 
             // Assert
-            Assert.True(result);
+            Assert.True(result.IsSuccess);
             await _mediatRHandlerMock.Received(1).PublishEvent(Arg.Is<ProductBelowStockEvent<ProductId>>(e => e.AggregateId == product.Id));
         }
     }

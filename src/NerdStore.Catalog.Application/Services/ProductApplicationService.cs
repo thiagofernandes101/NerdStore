@@ -2,6 +2,7 @@
 using NerdStore.Catalog.Domain.Repositories;
 using NerdStore.Catalog.Domain.Services;
 using NerdStore.Catalog.Domain.ValueObjects;
+using NerdStore.Core.Exceptions;
 using ApplicationModel = NerdStore.Catalog.Application.Models;
 using Entity = NerdStore.Catalog.Domain.Entities;
 
@@ -41,9 +42,15 @@ namespace NerdStore.Catalog.Application.Services
             await _productRepository.UnitOfWork.Commit();
         }
 
-        public Task<ApplicationModel.ProductViewModel> DebitStock(ApplicationModel.ProductId id, int quantity)
+        public async Task<ApplicationModel.ProductViewModel> DebitStock(ApplicationModel.ProductId id, int quantity)
         {
-            throw new NotImplementedException();
+            var mappedProductId = _mapper.Map<Entity.ProductId>(id);
+            var product = await _stockService.DebitStock(mappedProductId, quantity);
+            if (product.IsSuccess)
+            {
+                return _mapper.Map<ApplicationModel.ProductViewModel>(product.Value);
+            }
+            throw new DomainException(product.Error);
         }
 
         public async Task<IEnumerable<ApplicationModel.ProductViewModel>> GetAll()
@@ -72,9 +79,15 @@ namespace NerdStore.Catalog.Application.Services
             return _mapper.Map<IEnumerable<ApplicationModel.ProductViewModel>>(categories);
         }
 
-        public Task<ApplicationModel.ProductViewModel> ReplenishStock(ApplicationModel.ProductId id, int quantity)
+        public async Task<ApplicationModel.ProductViewModel> ReplenishStock(ApplicationModel.ProductId id, int quantity)
         {
-            throw new NotImplementedException();
+            var mappedProductId = _mapper.Map<Entity.ProductId>(id);
+            var product = await _stockService.ReplenishStock(mappedProductId, quantity);
+            if (product.IsSuccess)
+            {
+                return _mapper.Map<ApplicationModel.ProductViewModel>(product.Value);
+            }
+            throw new DomainException(product.Error);
         }
 
         public async Task UpdateProduct(ApplicationModel.ProductViewModel productDto)

@@ -9,7 +9,7 @@ namespace NerdStore.Catalog.Domain.Services
     public interface IStockService
     {
         Task<Result<Product>> DebitStock(ProductId productId, int quantity);
-        Task<bool> ReplenishStock(ProductId productId, int quantity);
+        Task<Result<Product>> ReplenishStock(ProductId productId, int quantity);
     }
 
     public class StockService : IStockService
@@ -28,17 +28,25 @@ namespace NerdStore.Catalog.Domain.Services
             var product = await _productRepository.GetById(productId);
 
             if (product is null)
+            {
                 return Result<Product>.Failure("Product not found.");
+            }
 
             if (!product.HasStock(quantity))
+            {
                 return Result<Product>.Failure("Insufficient stock.");
+            }
 
             product.DebitStock(quantity);
 
             await HandleLowStockEvent(product);
 
             await _productRepository.Update(product);
-            await _productRepository.UnitOfWork.Commit();
+            var commitSuccess = await _productRepository.UnitOfWork.Commit();
+            if (!commitSuccess)
+            {
+                return Result<Product>.Failure("Failed to commit stock replenishment.");
+            }
 
             return Result<Product>.Success(product);
         }
@@ -52,16 +60,24 @@ namespace NerdStore.Catalog.Domain.Services
             await _mediatRHandler.PublishEvent(lowStockEvent);
         }
 
-        public async Task<bool> ReplenishStock(ProductId productId, int quantity)
+        public async Task<Result<Product>> ReplenishStock(ProductId productId, int quantity)
         {
             var product = await _productRepository.GetById(productId);
-            if (product is not null)
+
+            if (product is null)
             {
-                product.ReplenishStock(quantity);
-                await _productRepository.Update(product);
-                return await _productRepository.UnitOfWork.Commit();
+                return Result<Product>.Failure("Product not found.");
             }
-            return false;
+
+            product.ReplenishStock(quantity);
+            await _productRepository.Update(product);
+            var commitSuccess = await _productRepository.UnitOfWork.Commit();
+            if (!commitSuccess)
+            {
+                return Result<Product>.Failure("Failed to commit stock replenishment.");
+            }
+
+            return Result<Product>.Success(product);
         }
     }
 }

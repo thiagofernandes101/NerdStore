@@ -32,14 +32,23 @@ namespace NerdStore.Catalog.Domain.Tests
 
             // Assert
             Assert.False(result.IsSuccess);
-            Assert.Equal("Insufficient stock or the product was not found.", result.Error);
+            Assert.Equal("Product not found.", result.Error);
         }
 
         [Fact]
         public async Task DebitStock_ShouldReturnFalse_WhenProductHasInsufficientStock()
         {
             // Arrange
-            var product = Product.Default;
+            var product = Product.CreateProductWithoutCategory(
+                "Product name",
+                "Product description",
+                true,
+                19.99m,
+                0,
+                "image-hash",
+                10,
+                10,
+                10);
             _productRepositoryMock.GetById(Arg.Any<ProductId>()).Returns(product);
 
             // Act
@@ -47,7 +56,7 @@ namespace NerdStore.Catalog.Domain.Tests
 
             // Assert
             Assert.False(result.IsSuccess);
-            Assert.Equal("Insufficient stock or the product was not found.", result.Error);
+            Assert.Equal("Insufficient stock.", result.Error);
         }
 
         [Fact]

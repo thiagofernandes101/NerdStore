@@ -50,8 +50,8 @@ namespace NerdStore.Catalog.Domain.Entities
             Active = active;
             Price = price;
             StockQuantity = stockQuantity;
-            CategoryId = category.Id;
-            Category = category;
+            CategoryId = category?.Id ?? Category.Empty.Id;
+            Category = category ?? Category.Empty;
             RegisterDate = registerDate;
             Image = image;
             Dimension = dimension;

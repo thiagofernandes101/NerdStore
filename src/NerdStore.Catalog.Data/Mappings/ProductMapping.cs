@@ -55,14 +55,17 @@ namespace NerdStore.Catalog.Data.Mappings
             {
                 dimensions.Property(property => property.Height)
                     .HasColumnName("Height")
+                    .HasConversion(height => height.Value, value => new Height(value))
                     .HasColumnType("int");
 
                 dimensions.Property(property => property.Width)
                     .HasColumnName("Width")
+                    .HasConversion(width => width.Value, value => new Width(value))
                     .HasColumnType("int");
-                
+
                 dimensions.Property(property => property.Depth)
                     .HasColumnName("Depth")
+                    .HasConversion(depth => depth.Value, value => new Depth(value))
                     .HasColumnType("int");
             });
         }

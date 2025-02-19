@@ -36,6 +36,10 @@ namespace NerdStore.Catalog.Domain.Entities
 
         public static Category None =>
             new Category(CategoryId.NewId, CategoryName.Create("None"), CategoryCode.Create(0));
+
+        public static Category Empty =>
+            new Category(CategoryId.Empty, CategoryName.Create(string.Empty), CategoryCode.Create(0));
+
         public override string ToString() => $"{Name} - {Code}";
     }
 }

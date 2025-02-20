@@ -5,11 +5,11 @@ using NerdStore.Catalog.Domain.Entities;
 
 namespace NerdStore.Catalog.Application.Tests.UnitTests
 {
-    public class DtoToDomainEntityMappingProfileTests
+    public class ViewModelToDomainEntityMappingProfileTests
     {
         private readonly IMapper _mapper;
 
-        public DtoToDomainEntityMappingProfileTests()
+        public ViewModelToDomainEntityMappingProfileTests()
         {
             var config = new MapperConfiguration(cfg =>
             {
@@ -19,7 +19,7 @@ namespace NerdStore.Catalog.Application.Tests.UnitTests
         }
 
         [Fact]
-        public void ShouldMapProductDtoToProduct()
+        public void ShouldMapProductViewModelToProduct()
         {
             // Arrange
             var productDto = new ProductViewModel
@@ -63,7 +63,7 @@ namespace NerdStore.Catalog.Application.Tests.UnitTests
         }
 
         [Fact]
-        public void ShouldMapCategoryDtoToCategory()
+        public void ShouldMapCategoryViewModelToCategory()
         {
             // Arrange
             var categoryDto = new CategoryModel(

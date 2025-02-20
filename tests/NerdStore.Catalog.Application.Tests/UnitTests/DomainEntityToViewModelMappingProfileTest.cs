@@ -2,14 +2,15 @@
 using NerdStore.Catalog.Application.AutoMapper;
 using NerdStore.Catalog.Application.Models;
 using NerdStore.Catalog.Domain.Entities;
+using System.Text.Json;
 
 namespace NerdStore.Catalog.Application.Tests.UnitTests
 {
-    public class DomainEntityToDtoMappingProfileTest
+    public class DomainEntityToViewModelMappingProfileTest
     {
         private readonly IMapper _mapper;
 
-        public DomainEntityToDtoMappingProfileTest()
+        public DomainEntityToViewModelMappingProfileTest()
         {
             var config = new MapperConfiguration(cfg =>
             {
@@ -19,7 +20,7 @@ namespace NerdStore.Catalog.Application.Tests.UnitTests
         }
 
         [Fact]
-        public void ShouldMapProductToProductDto()
+        public void ShouldMapProductToProductViewModel()
         {
             // Arrange
             var product = Product.CreateProduct
@@ -56,14 +57,16 @@ namespace NerdStore.Catalog.Application.Tests.UnitTests
         }
 
         [Fact]
-        public void ShouldMapProductsToProductsDto()
+        public void ShouldMapProductsToProductsViewModel()
         {
             // Arrange
-            var products = new List<Product>
-            {
-                Product.CreateProduct("Test Product", "Test Description", true, 19.99m, 10, Category.Create("Test Category", 0), "test.jpg", 50, 10, 10),
-                Product.CreateProduct("Test Product 2", "Test Description 2", false, 29.99m, 20, Category.Create("Test Category 2", 1), "test2.jpg", 60, 20, 20)
-            };
+            //var products = new List<Product>
+            //{
+            //    Product.CreateProduct("Test Product", "Test Description", true, 19.99m, 10, Category.Create("Test Category", 0), "test.jpg", 50, 10, 10),
+            //    Product.CreateProduct("Test Product 2", "Test Description 2", false, 29.99m, 20, Category.Create("Test Category 2", 1), "test2.jpg", 60, 20, 20)
+            //};
+            var json = "[{\"CategoryId\":{\"Value\":\"b2931928-dd4f-49a1-b439-295266cd5dd3\"},\"Name\":{\"Value\":\"Product1\"},\"Description\":{\"Value\":\"Description1\"},\"Active\":true,\"Price\":{\"Value\":2.00},\"RegisterDate\":{\"Value\":\"2025-02-19T19:35:26.63\"},\"Image\":{\"Value\":\"product1.jpg\"},\"StockQuantity\":{\"Value\":3},\"Category\":null,\"Dimension\":{\"Height\":{\"Value\":1},\"Width\":{\"Value\":1},\"Depth\":{\"Value\":1}},\"Id\":{\"Value\":\"c8127aea-863f-4105-975b-4bd9431077d5\"}},{\"CategoryId\":{\"Value\":\"c968f4cf-f3c5-421f-81ca-17e3d44bcfa7\"},\"Name\":{\"Value\":\"Product2\"},\"Description\":{\"Value\":\"Description2\"},\"Active\":false,\"Price\":{\"Value\":1.00},\"RegisterDate\":{\"Value\":\"2025-02-19T19:35:26.633\"},\"Image\":{\"Value\":\"product2.jpg\"},\"StockQuantity\":{\"Value\":5},\"Category\":null,\"Dimension\":{\"Height\":{\"Value\":1},\"Width\":{\"Value\":1},\"Depth\":{\"Value\":1}},\"Id\":{\"Value\":\"b92c9ba5-8c83-4201-999b-b2b6a6b3a451\"}}]";
+            var products = JsonSerializer.Deserialize<List<Product>>(json);
 
             // Act
             var productsViewModel = _mapper.Map<IEnumerable<ProductViewModel>>(products).ToList();
@@ -127,7 +130,7 @@ namespace NerdStore.Catalog.Application.Tests.UnitTests
         }
 
         [Fact]
-        public void ShouldMapCategoryToCategoryDto()
+        public void ShouldMapCategoryToCategoryViewModel()
         {
             // Arrange
             var category = Category.Create("Test Category", 0);

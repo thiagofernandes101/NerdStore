@@ -1,8 +1,11 @@
-﻿namespace NerdStore.Catalog.Domain.ValueObjects
+﻿using System.Text.Json.Serialization;
+
+namespace NerdStore.Catalog.Domain.ValueObjects
 {
     public record ProductRegisterDate
     {
         public DateTime Value { get; }
+        [JsonConstructor]
         private ProductRegisterDate(DateTime value) => Value = value;
         public static ProductRegisterDate Create(DateTime value) => new(value);
         public static ProductRegisterDate Now => new(DateTime.Now);

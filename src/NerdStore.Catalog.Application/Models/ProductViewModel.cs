@@ -4,6 +4,10 @@ namespace NerdStore.Catalog.Application.Models
 {
     public record ProductViewModel
     {
+        public ProductViewModel()
+        {
+            
+        }
         public ProductViewModel(
             ProductId id,
             ProductCategoryId categoryId,

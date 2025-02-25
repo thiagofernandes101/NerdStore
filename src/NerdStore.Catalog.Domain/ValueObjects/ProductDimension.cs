@@ -1,5 +1,5 @@
 ﻿using NerdStore.Catalog.Domain.Validations;
-using NerdStore.Core;
+using System.Text.Json.Serialization;
 
 namespace NerdStore.Catalog.Domain.ValueObjects
 {
@@ -23,7 +23,7 @@ namespace NerdStore.Catalog.Domain.ValueObjects
         public Depth Depth { get; private set; }
 
         private static readonly DimensionValidator _dimensionValidator = new();
-
+        [JsonConstructor]
         private ProductDimension(Height height, Width width, Depth depth)
         {
             Height = height;

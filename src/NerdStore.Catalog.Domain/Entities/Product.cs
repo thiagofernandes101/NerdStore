@@ -3,6 +3,7 @@ using NerdStore.Catalog.Domain.Validations;
 using NerdStore.Catalog.Domain.ValueObjects;
 using NerdStore.Core.DomainObjects;
 using NerdStore.Core.Exceptions;
+using System.Text.Json.Serialization;
 
 namespace NerdStore.Catalog.Domain.Entities
 {
@@ -33,6 +34,7 @@ namespace NerdStore.Catalog.Domain.Entities
         [Obsolete("Parameterless constructor is for EF Core and mapping only.")]
         public Product() { }
 
+        [JsonConstructor]
         private Product(
             ProductId id,
             ProductName name,
@@ -92,6 +94,30 @@ namespace NerdStore.Catalog.Domain.Entities
             int depth) =>
             new(
                 ProductId.NewId,
+                ProductName.Create(name),
+                ProductDescription.Create(description),
+                active,
+                ProductPrice.Create(price),
+                ProductStockQuantity.Create(stockQuantity),
+                category,
+                ProductRegisterDate.Create(DateTime.Now),
+                ProductImageHash.Create(image),
+                ProductDimension.Create(height, width, depth));
+
+        public static Product CreateProduct(
+            Guid id,
+            string name,
+            string description,
+            bool active,
+            decimal price,
+            int stockQuantity,
+            Category category,
+            string image,
+            int height,
+            int width,
+            int depth) =>
+            new(
+                id == Guid.Empty ? throw new ArgumentException("Id is mandatory") : ProductId.CreateFrom(id),
                 ProductName.Create(name),
                 ProductDescription.Create(description),
                 active,

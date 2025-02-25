@@ -1,5 +1,6 @@
 ﻿using NerdStore.Catalog.Domain.ValueObjects;
 using NerdStore.Core.DomainObjects;
+using System.Text.Json.Serialization;
 
 namespace NerdStore.Catalog.Domain.Entities
 {
@@ -22,6 +23,7 @@ namespace NerdStore.Catalog.Domain.Entities
         [Obsolete("Parameterless constructor is for EF Core and mapping only.")]
         public Category() { }
 
+        [JsonConstructor]
         private Category(
             CategoryId id,
             CategoryName name,

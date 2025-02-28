@@ -23,7 +23,6 @@ namespace NerdStore.Catalog.Domain.Entities
         [Obsolete("Parameterless constructor is for EF Core and mapping only.")]
         public Category() { }
 
-        [JsonConstructor]
         private Category(
             CategoryId id,
             CategoryName name,

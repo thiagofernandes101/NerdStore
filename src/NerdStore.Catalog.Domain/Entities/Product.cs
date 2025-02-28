@@ -34,7 +34,6 @@ namespace NerdStore.Catalog.Domain.Entities
         [Obsolete("Parameterless constructor is for EF Core and mapping only.")]
         public Product() { }
 
-        [JsonConstructor]
         private Product(
             ProductId id,
             ProductName name,

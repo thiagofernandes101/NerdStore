@@ -6,7 +6,6 @@ namespace NerdStore.Catalog.Domain.ValueObjects
     {
         public string Value { get; }
 
-        [JsonConstructor]
         private ProductName(string value) => Value = value;
         public static ProductName Create(string value) => new(value);
         public override string ToString() => Value;

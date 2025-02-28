@@ -5,7 +5,6 @@ namespace NerdStore.Catalog.Domain.ValueObjects
     public record CategoryCode
     {
         public int Value { get; }
-        [JsonConstructor]
 
         private CategoryCode(int value) => Value = value;
 

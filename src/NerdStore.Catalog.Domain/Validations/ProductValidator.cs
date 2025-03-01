@@ -27,7 +27,7 @@ namespace NerdStore.Catalog.Domain.Validations
                 .Must(hash => !string.IsNullOrWhiteSpace(hash.Value))
                 .WithMessage("Product image cannot be empry.");
 
-            RuleFor(p => p.StockQuantity)
+            RuleFor(p => p.Stock)
                 .NotNull().WithMessage("Stock quantity is required.")
                 .Must(stock => stock.Amount >= 0)
                 .WithMessage("Stock quantity cannot be negative.");

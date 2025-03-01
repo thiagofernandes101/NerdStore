@@ -26,7 +26,6 @@ namespace NerdStore.Catalog.Domain.Services
         public async Task<Result<Product>> DebitStock(ProductId productId, int quantity)
         {
             var product = await _productRepository.GetById(productId);
-
             if (product is null)
             {
                 return Result<Product>.Failure("Product not found.");
@@ -37,27 +36,43 @@ namespace NerdStore.Catalog.Domain.Services
                 return Result<Product>.Failure("Insufficient stock.");
             }
 
-            product.DebitStock(quantity);
+            var productResult = product.DebitStock(quantity);
+            if (!productResult.IsSuccess)
+            {
+                return productResult;
+            }
 
-            await HandleLowStockEvent(product);
+            var updatedProduct = productResult.Value!;
+            await HandleLowStockEventIfNeeded(updatedProduct);
 
+            var updateResult = await UpdateProductStock(updatedProduct);
+            if (!updateResult.IsSuccess)
+            {
+                return updateResult;
+            }
+
+            return Result<Product>.Success(updatedProduct);
+        }
+
+        private async Task HandleLowStockEventIfNeeded(Product product)
+        {
+            if (product.Stock.Amount < 10)
+            {
+                var lowStockEvent = ProductBelowStockEvent<ProductId>.Create(product.Id, product.Stock);
+                await _mediatRHandler.PublishEvent(lowStockEvent);
+            }
+        }
+
+        private async Task<Result<Product>> UpdateProductStock(Product product)
+        {
             await _productRepository.Update(product);
             var commitSuccess = await _productRepository.UnitOfWork.Commit();
             if (!commitSuccess)
             {
-                return Result<Product>.Failure("Failed to commit stock replenishment.");
+                return Result<Product>.Failure("Failed to commit stock update.");
             }
 
             return Result<Product>.Success(product);
-        }
-
-        private async Task HandleLowStockEvent(Product product)
-        {
-            if (product.StockQuantity.Amount >= 10)
-                return;
-
-            var lowStockEvent = ProductBelowStockEvent<ProductId>.Create(product.Id, product.StockQuantity);
-            await _mediatRHandler.PublishEvent(lowStockEvent);
         }
 
         public async Task<Result<Product>> ReplenishStock(ProductId productId, int quantity)

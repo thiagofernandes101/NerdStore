@@ -18,7 +18,7 @@ namespace NerdStore.Catalog.Application.AutoMapper
                     new ApplicationModel.ProductPrice(src.Price.Value),
                     new ApplicationModel.ProductRegisterDate(src.RegisterDate.Value),
                     new ApplicationModel.ProductImage(src.Image.Value),
-                    new ApplicationModel.ProductStockQuantity(src.StockQuantity.Amount),
+                    new ApplicationModel.ProductStockQuantity(src.Stock.Amount),
                     new ApplicationModel.ProductHeight((int)src.Dimension.Height.Value),
                     new ApplicationModel.ProductWidth((int)src.Dimension.Width.Value),
                     new ApplicationModel.ProductDepth((int)src.Dimension.Depth.Value),

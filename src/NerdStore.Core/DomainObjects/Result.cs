@@ -3,10 +3,10 @@
     public class Result<T> where T : notnull
     {
         public bool IsSuccess { get; }
-        public string? Error { get; }
+        public string Error { get; }
         public T? Value { get; }
 
-        private Result(bool isSuccess, string? error, T? value)
+        private Result(bool isSuccess, string error, T? value)
         {
             if (isSuccess && value == null && !typeof(T).IsValueType)
                 throw new ArgumentException("Success result must contain a value.", nameof(value));
@@ -15,11 +15,11 @@
                 throw new ArgumentException("Failure result must contain an error message.", nameof(error));
 
             IsSuccess = isSuccess;
-            Error = error;
-            Value = value;
+            Error = error ?? string.Empty;
+            Value = isSuccess ? value : default;
         }
 
-        public static Result<T> Success(T value) => new(true, null, value);
+        public static Result<T> Success(T value) => new(true, string.Empty, value);
 
         public static Result<T> Failure(string error) => new(false, error, default);
     }

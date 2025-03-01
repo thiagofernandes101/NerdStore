@@ -2,7 +2,6 @@
 using NerdStore.Catalog.Domain.Validations;
 using NerdStore.Catalog.Domain.ValueObjects;
 using NerdStore.Core.DomainObjects;
-using NerdStore.Core.Exceptions;
 
 namespace NerdStore.Catalog.Domain.Entities
 {
@@ -24,32 +23,20 @@ namespace NerdStore.Catalog.Domain.Entities
         public Price Price { get; private set; }
         public RegisterDate RegisterDate { get; private set; }
         public Image Image { get; private set; }
-        public Stock StockQuantity { get; private set; }
+        public Stock Stock { get; private set; }
         public Category Category { get; private set; }
         public Dimension Dimension { get; private set; }
-
-        private static readonly ProductValidator _validator = new();
 
         [Obsolete("Parameterless constructor is for EF Core and mapping only.")]
         public Product() { }
 
-        private Product(
-            ProductId id,
-            Name name,
-            Description description,
-            bool active,
-            Price price,
-            Stock stockQuantity,
-            Category category,
-            RegisterDate registerDate,
-            Image image,
-            Dimension dimension) : base(id)
+        private Product(ProductId id, Name name, Description description, bool active, Price price, Stock stock, Category category, RegisterDate registerDate, Image image, Dimension dimension) : base(id)
         {
             Name = name;
             Description = description;
             Active = active;
             Price = price;
-            StockQuantity = stockQuantity;
+            Stock = stock;
             CategoryId = category?.Id ?? Category.Empty.Id;
             Category = category ?? Category.Empty;
             RegisterDate = registerDate;
@@ -57,63 +44,13 @@ namespace NerdStore.Catalog.Domain.Entities
             Dimension = dimension;
         }
 
-        public static Product CreateProductWithoutCategory(
-            string name,
-            string description,
-            bool active,
-            decimal price,
-            int stockQuantity,
-            string image,
-            int height,
-            int width,
-            int depth) =>
-            new(
-                ProductId.NewId,
-                Name.Create(name),
-                Description.Create(description),
-                active,
-                Price.Create(price),
-                Stock.Create(stockQuantity),
-                Category.None,
-                RegisterDate.Create(DateTime.Now),
-                Image.CreateFromHash(image),
-                Dimension.Create(height, width, depth));
+        public static Product CreateProductWithoutCategory(string name, string description, bool active, decimal price, int stockQuantity, string image, int height, int width, int depth) =>
+            new(ProductId.NewId, Name.Create(name), Description.Create(description), active, Price.Create(price), Stock.Create(stockQuantity), Category.None, RegisterDate.Create(DateTime.Now), Image.CreateFromHash(image), Dimension.Create(height, width, depth));
 
-        public static Product CreateProduct(
-            string name,
-            string description,
-            bool active,
-            decimal price,
-            int stockQuantity,
-            Category category,
-            string image,
-            int height,
-            int width,
-            int depth) =>
-            new(
-                ProductId.NewId,
-                Name.Create(name),
-                Description.Create(description),
-                active,
-                Price.Create(price),
-                Stock.Create(stockQuantity),
-                category,
-                RegisterDate.Create(DateTime.Now),
-                Image.CreateFromHash(image),
-                Dimension.Create(height, width, depth));
+        public static Product CreateProduct(string name, string description, bool active, decimal price, int stockQuantity, Category category, string image, int height, int width, int depth) =>
+            new(ProductId.NewId, Name.Create(name), Description.Create(description), active, Price.Create(price), Stock.Create(stockQuantity), category, RegisterDate.Create(DateTime.Now), Image.CreateFromHash(image), Dimension.Create(height, width, depth));
 
-        public static Product CreateProduct(
-            Guid id,
-            string name,
-            string description,
-            bool active,
-            decimal price,
-            int stockQuantity,
-            Category category,
-            string image,
-            int height,
-            int width,
-            int depth) =>
+        public static Product CreateProduct(Guid id, string name, string description, bool active, decimal price, int stockQuantity, Category category, string image, int height, int width, int depth) =>
             new(
                 id == Guid.Empty ? throw new ArgumentException("Id is mandatory") : ProductId.CreateFrom(id),
                 Name.Create(name),
@@ -127,17 +64,7 @@ namespace NerdStore.Catalog.Domain.Entities
                 Dimension.Create(height, width, depth));
 
         public static Product Default =>
-            new(
-                ProductId.Empty,
-                Name.Create(string.Empty),
-                Description.Create(string.Empty),
-                false,
-                Price.Create(0),
-                Stock.Create(0),
-                Category.None,
-                RegisterDate.Create(DateTime.MinValue),
-                Image.CreateFromHash(string.Empty),
-                Dimension.Create(0, 0, 0));
+            new(ProductId.Empty, Name.Create(string.Empty), Description.Create(string.Empty), false, Price.Create(0), Stock.Create(0), Category.None, RegisterDate.Create(DateTime.MinValue), Image.CreateFromHash(string.Empty), Dimension.Create(0, 0, 0));
 
         public void Activate() => Active = true;
 
@@ -152,23 +79,25 @@ namespace NerdStore.Catalog.Domain.Entities
         public void ChagneDescription(string description) =>
             Description = Description.Create(description);
 
-        public void DebitStock(int quantity)
+        public Result<Product> DebitStock(int quantity)
         {
             if (quantity < 0)
                 quantity *= -1;
 
             if (!HasStock(quantity))
-                throw new DomainException("Insufficient stock.");
+                return Result<Product>.Failure("Insufficient stock.");
 
-            StockQuantity = Stock.Create(StockQuantity.Amount - quantity);
+            Stock = Stock.Debit(Stock, quantity);
+            return Result<Product>.Success(this);
         }
 
         public bool HasStock(int quantity) =>
-            StockQuantity.Amount >= quantity;
+            Stock.Amount >= quantity;
 
         public void ReplenishStock(int quantity) =>
-            StockQuantity = Stock.Create(StockQuantity.Amount + quantity);
+            Stock.Replenish(Stock, quantity);
 
+        private static readonly ProductValidator _validator = new();
         public ValidationResult IsValid() =>
             _validator.Validate(this);
     }

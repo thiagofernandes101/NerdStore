@@ -1,6 +1,5 @@
 ﻿using FluentValidation.Results;
 using NerdStore.Catalog.Domain.Entities;
-using NerdStore.Core.Exceptions;
 
 namespace NerdStore.Catalog.Domain.Tests
 {
@@ -60,8 +59,8 @@ namespace NerdStore.Catalog.Domain.Tests
                 10,
                 10,
                 "validhash",
-                1, 
-                1, 
+                1,
+                1,
                 1
             );
 
@@ -84,8 +83,8 @@ namespace NerdStore.Catalog.Domain.Tests
                 10,
                 10,
                 "validhash",
-                1, 
-                1, 
+                1,
+                1,
                 1
             );
 
@@ -108,8 +107,8 @@ namespace NerdStore.Catalog.Domain.Tests
                 -1,
                 10,
                 "validhash",
-               1, 
-               1, 
+               1,
+               1,
                1
             );
 
@@ -132,8 +131,8 @@ namespace NerdStore.Catalog.Domain.Tests
                 10,
                 10,
                 "",
-                1, 
-                1, 
+                1,
+                1,
                 1
             );
 
@@ -156,13 +155,18 @@ namespace NerdStore.Catalog.Domain.Tests
                 10,
                 10,
                 "validhash",
-                1, 
-                1, 
+                1,
+                1,
                 1
             );
 
+            // Act
+            var result = product.DebitStock(11);
+
             // Assert
-            Assert.Throws<DomainException>(() => product.DebitStock(11));
+            Assert.False(result.IsSuccess);
+            Assert.Equal("Insufficient stock.", result.Error);
+            //Assert.Throws<DomainException>(() => product.DebitStock(11));
         }
 
         [Fact]
@@ -176,8 +180,8 @@ namespace NerdStore.Catalog.Domain.Tests
                 10,
                 10,
                 "validhash",
-                0, 
-                1, 
+                0,
+                1,
                 1
             );
             // Act
@@ -198,8 +202,8 @@ namespace NerdStore.Catalog.Domain.Tests
                 10,
                 10,
                 "validhash",
-                1, 
-                0, 
+                1,
+                0,
                 1
             );
             // Act
@@ -220,8 +224,8 @@ namespace NerdStore.Catalog.Domain.Tests
                 10,
                 10,
                 "validhash",
-                1, 
-                1, 
+                1,
+                1,
                 0
             );
             // Act

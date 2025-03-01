@@ -42,7 +42,7 @@ namespace NerdStore.Catalog.Data.Mappings
                 .HasConversion(registerDate => registerDate.Value, value => RegisterDate.Create(value))
                 .HasColumnType("datetime");
 
-            builder.Property(property => property.StockQuantity)
+            builder.Property(property => property.Stock)
                 .IsRequired()
                 .HasConversion(stock => stock.Amount, value => Stock.Create(value))
                 .HasColumnType("int");

@@ -3,7 +3,6 @@ using NerdStore.Catalog.Domain.Validations;
 using NerdStore.Catalog.Domain.ValueObjects;
 using NerdStore.Core.DomainObjects;
 using NerdStore.Core.Exceptions;
-using System.Text.Json.Serialization;
 
 namespace NerdStore.Catalog.Domain.Entities
 {
@@ -25,7 +24,7 @@ namespace NerdStore.Catalog.Domain.Entities
         public Price Price { get; private set; }
         public RegisterDate RegisterDate { get; private set; }
         public Image Image { get; private set; }
-        public StockQuantity StockQuantity { get; private set; }
+        public Stock StockQuantity { get; private set; }
         public Category Category { get; private set; }
         public Dimension Dimension { get; private set; }
 
@@ -40,7 +39,7 @@ namespace NerdStore.Catalog.Domain.Entities
             Description description,
             bool active,
             Price price,
-            StockQuantity stockQuantity,
+            Stock stockQuantity,
             Category category,
             RegisterDate registerDate,
             Image image,
@@ -74,7 +73,7 @@ namespace NerdStore.Catalog.Domain.Entities
                 Description.Create(description),
                 active,
                 Price.Create(price),
-                StockQuantity.Create(stockQuantity),
+                Stock.Create(stockQuantity),
                 Category.None,
                 RegisterDate.Create(DateTime.Now),
                 Image.CreateFromHash(image),
@@ -97,7 +96,7 @@ namespace NerdStore.Catalog.Domain.Entities
                 Description.Create(description),
                 active,
                 Price.Create(price),
-                StockQuantity.Create(stockQuantity),
+                Stock.Create(stockQuantity),
                 category,
                 RegisterDate.Create(DateTime.Now),
                 Image.CreateFromHash(image),
@@ -121,7 +120,7 @@ namespace NerdStore.Catalog.Domain.Entities
                 Description.Create(description),
                 active,
                 Price.Create(price),
-                StockQuantity.Create(stockQuantity),
+                Stock.Create(stockQuantity),
                 category,
                 RegisterDate.Create(DateTime.Now),
                 Image.CreateFromHash(image),
@@ -134,7 +133,7 @@ namespace NerdStore.Catalog.Domain.Entities
                 Description.Create(string.Empty),
                 false,
                 Price.Create(0),
-                StockQuantity.Create(0),
+                Stock.Create(0),
                 Category.None,
                 RegisterDate.Create(DateTime.MinValue),
                 Image.CreateFromHash(string.Empty),
@@ -161,14 +160,14 @@ namespace NerdStore.Catalog.Domain.Entities
             if (!HasStock(quantity))
                 throw new DomainException("Insufficient stock.");
 
-            StockQuantity = StockQuantity.Create(StockQuantity.Value - quantity);
+            StockQuantity = Stock.Create(StockQuantity.Amount - quantity);
         }
 
         public bool HasStock(int quantity) =>
-            StockQuantity.Value >= quantity;
+            StockQuantity.Amount >= quantity;
 
         public void ReplenishStock(int quantity) =>
-            StockQuantity = StockQuantity.Create(StockQuantity.Value + quantity);
+            StockQuantity = Stock.Create(StockQuantity.Amount + quantity);
 
         public ValidationResult IsValid() =>
             _validator.Validate(this);

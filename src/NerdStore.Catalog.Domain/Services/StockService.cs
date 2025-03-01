@@ -53,7 +53,7 @@ namespace NerdStore.Catalog.Domain.Services
 
         private async Task HandleLowStockEvent(Product product)
         {
-            if (product.StockQuantity.Value >= 10)
+            if (product.StockQuantity.Amount >= 10)
                 return;
 
             var lowStockEvent = ProductBelowStockEvent<ProductId>.Create(product.Id, product.StockQuantity);

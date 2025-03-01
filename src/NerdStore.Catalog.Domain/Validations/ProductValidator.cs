@@ -29,7 +29,7 @@ namespace NerdStore.Catalog.Domain.Validations
 
             RuleFor(p => p.StockQuantity)
                 .NotNull().WithMessage("Stock quantity is required.")
-                .Must(stock => stock.Value >= 0)
+                .Must(stock => stock.Amount >= 0)
                 .WithMessage("Stock quantity cannot be negative.");
 
             RuleFor(p => p.CategoryId)

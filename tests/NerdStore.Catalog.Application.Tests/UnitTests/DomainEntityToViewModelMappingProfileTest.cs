@@ -51,7 +51,7 @@ namespace NerdStore.Catalog.Application.Tests.UnitTests
             Assert.Equal(product.Price.Value, productDto.Price.Value);
             Assert.Equal(product.RegisterDate.Value, productDto.RegisterDate.Value);
             Assert.Equal(product.Image.Value, productDto.Image.Value);
-            Assert.Equal(product.StockQuantity.Value, productDto.StockQuantity.Value);
+            Assert.Equal(product.StockQuantity.Amount, productDto.StockQuantity.Value);
             Assert.Equal(product.Dimension.Height.Value, productDto.Height.Value);
             Assert.Equal(product.Dimension.Width.Value, productDto.Width.Value);
             Assert.Equal(product.Dimension.Depth.Value, productDto.Depth.Value);
@@ -88,7 +88,7 @@ namespace NerdStore.Catalog.Application.Tests.UnitTests
             Assert.Equal(product.Price.Value, productDto.Price.Value);
             Assert.Equal(product.RegisterDate.Value, productDto.RegisterDate.Value);
             Assert.Equal(product.Image.Value, productDto.Image.Value);
-            Assert.Equal(product.StockQuantity.Value, productDto.StockQuantity.Value);
+            Assert.Equal(product.StockQuantity.Amount, productDto.StockQuantity.Value);
             Assert.Equal(product.Dimension.Height.Value, productDto.Height.Value);
             Assert.Equal(product.Dimension.Width.Value, productDto.Width.Value);
             Assert.Equal(product.Dimension.Depth.Value, productDto.Depth.Value);

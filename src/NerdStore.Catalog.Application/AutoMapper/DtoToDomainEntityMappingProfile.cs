@@ -37,7 +37,7 @@ namespace NerdStore.Catalog.Application.AutoMapper
                     opt => opt.MapFrom(src => Image.CreateFromHash(src.Image.Value)))
                 .ForMember(
                     dest => dest.StockQuantity,
-                    opt => opt.MapFrom(src => Domain.ValueObjects.StockQuantity.Create(src.StockQuantity.Value)))
+                    opt => opt.MapFrom(src => Domain.ValueObjects.Stock.Create(src.StockQuantity.Value)))
                 .ForMember(
                     dest => dest.Dimension,
                     opt => opt.MapFrom(src => Dimension.Create(src.Height.Value, src.Width.Value, src.Depth.Value)))

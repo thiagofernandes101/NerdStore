@@ -4,6 +4,7 @@ using NerdStore.Catalog.Domain.Entities;
 using NerdStore.Catalog.Domain.Repositories;
 using NerdStore.Catalog.Domain.ValueObjects;
 using NerdStore.Core.Data;
+using NerdStore.Core.DomainObjects;
 
 namespace NerdStore.Catalog.Data.Repositories
 {
@@ -37,11 +38,15 @@ namespace NerdStore.Catalog.Data.Repositories
                 .Where(p => p.Category.Code == code)
                 .ToListAsync();
 
-        public async Task<Product?> GetById(ProductId id)
+        public async Task<Result<Product>> GetById(ProductId id)
         {
-            return await _catalogContext.Products
+            var product = await _catalogContext.Products
                 .AsNoTracking()
                 .FirstOrDefaultAsync(p => p.Id == id);
+            
+            return product is null
+                ? Result<Product>.Failure("Product not found.")
+                : Result<Product>.Success(product);
         }
 
         public async Task<IEnumerable<Category>> GetCategories() =>

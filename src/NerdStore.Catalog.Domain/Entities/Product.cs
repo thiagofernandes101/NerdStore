@@ -94,8 +94,11 @@ namespace NerdStore.Catalog.Domain.Entities
         public bool HasStock(int quantity) =>
             Stock.Amount >= quantity;
 
-        public void ReplenishStock(int quantity) =>
-            Stock.Replenish(Stock, quantity);
+        public Result<Product> ReplenishStock(int quantity)
+        {
+            Stock = Stock.Replenish(Stock, quantity);
+            return Result<Product>.Success(this);
+        }
 
         private static readonly ProductValidator _validator = new();
         public ValidationResult IsValid() =>

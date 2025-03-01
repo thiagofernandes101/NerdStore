@@ -50,22 +50,6 @@ namespace NerdStore.Catalog.Domain.Entities
         public static Product CreateProduct(string name, string description, bool active, decimal price, int stockQuantity, Category category, string image, int height, int width, int depth) =>
             new(ProductId.NewId, Name.Create(name), Description.Create(description), active, Price.Create(price), Stock.Create(stockQuantity), category, RegisterDate.Create(DateTime.Now), Image.CreateFromHash(image), Dimension.Create(height, width, depth));
 
-        public static Product CreateProduct(Guid id, string name, string description, bool active, decimal price, int stockQuantity, Category category, string image, int height, int width, int depth) =>
-            new(
-                id == Guid.Empty ? throw new ArgumentException("Id is mandatory") : ProductId.CreateFrom(id),
-                Name.Create(name),
-                Description.Create(description),
-                active,
-                Price.Create(price),
-                Stock.Create(stockQuantity),
-                category,
-                RegisterDate.Create(DateTime.Now),
-                Image.CreateFromHash(image),
-                Dimension.Create(height, width, depth));
-
-        public static Product Default =>
-            new(ProductId.Empty, Name.Create(string.Empty), Description.Create(string.Empty), false, Price.Create(0), Stock.Create(0), Category.None, RegisterDate.Create(DateTime.MinValue), Image.CreateFromHash(string.Empty), Dimension.Create(0, 0, 0));
-
         public void Activate() => Active = true;
 
         public void Deactivate() => Active = false;
@@ -76,23 +60,20 @@ namespace NerdStore.Catalog.Domain.Entities
             CategoryId = category.Id;
         }
 
-        public void ChagneDescription(string description) =>
-            Description = Description.Create(description);
+        public void ChagneDescription(string description) => Description = Description.Create(description);
 
         public Result<Product> DebitStock(int quantity)
         {
-            if (quantity < 0)
-                quantity *= -1;
+            var debitQuantity = Math.Abs(quantity);
 
-            if (!HasStock(quantity))
+            if (!HasStock(debitQuantity))
                 return Result<Product>.Failure("Insufficient stock.");
 
-            Stock = Stock.Debit(Stock, quantity);
+            Stock = Stock.Debit(Stock, debitQuantity);
             return Result<Product>.Success(this);
         }
 
-        public bool HasStock(int quantity) =>
-            Stock.Amount >= quantity;
+        public bool HasStock(int quantity) => Stock.Amount >= quantity;
 
         public Result<Product> ReplenishStock(int quantity)
         {
@@ -101,7 +82,6 @@ namespace NerdStore.Catalog.Domain.Entities
         }
 
         private static readonly ProductValidator _validator = new();
-        public ValidationResult IsValid() =>
-            _validator.Validate(this);
+        public ValidationResult IsValid() => _validator.Validate(this);
     }
 }

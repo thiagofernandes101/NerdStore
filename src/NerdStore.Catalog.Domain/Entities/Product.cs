@@ -20,14 +20,14 @@ namespace NerdStore.Catalog.Domain.Entities
     {
         public CategoryId CategoryId { get; private set; }
         public Name Name { get; private set; }
-        public ProductDescription Description { get; private set; }
+        public Description Description { get; private set; }
         public bool Active { get; private set; }
-        public ProductPrice Price { get; private set; }
-        public ProductRegisterDate RegisterDate { get; private set; }
-        public ProductImageHash Image { get; private set; }
-        public ProductStockQuantity StockQuantity { get; private set; }
+        public Price Price { get; private set; }
+        public RegisterDate RegisterDate { get; private set; }
+        public Image Image { get; private set; }
+        public StockQuantity StockQuantity { get; private set; }
         public Category Category { get; private set; }
-        public ProductDimension Dimension { get; private set; }
+        public Dimension Dimension { get; private set; }
 
         private static readonly ProductValidator _validator = new();
 
@@ -37,14 +37,14 @@ namespace NerdStore.Catalog.Domain.Entities
         private Product(
             ProductId id,
             Name name,
-            ProductDescription description,
+            Description description,
             bool active,
-            ProductPrice price,
-            ProductStockQuantity stockQuantity,
+            Price price,
+            StockQuantity stockQuantity,
             Category category,
-            ProductRegisterDate registerDate,
-            ProductImageHash image,
-            ProductDimension dimension) : base(id)
+            RegisterDate registerDate,
+            Image image,
+            Dimension dimension) : base(id)
         {
             Name = name;
             Description = description;
@@ -71,14 +71,14 @@ namespace NerdStore.Catalog.Domain.Entities
             new(
                 ProductId.NewId,
                 Name.Create(name),
-                ProductDescription.Create(description),
+                Description.Create(description),
                 active,
-                ProductPrice.Create(price),
-                ProductStockQuantity.Create(stockQuantity),
+                Price.Create(price),
+                StockQuantity.Create(stockQuantity),
                 Category.None,
-                ProductRegisterDate.Create(DateTime.Now),
-                ProductImageHash.Create(image),
-                ProductDimension.Create(height, width, depth));
+                RegisterDate.Create(DateTime.Now),
+                Image.CreateFromHash(image),
+                Dimension.Create(height, width, depth));
 
         public static Product CreateProduct(
             string name,
@@ -94,14 +94,14 @@ namespace NerdStore.Catalog.Domain.Entities
             new(
                 ProductId.NewId,
                 Name.Create(name),
-                ProductDescription.Create(description),
+                Description.Create(description),
                 active,
-                ProductPrice.Create(price),
-                ProductStockQuantity.Create(stockQuantity),
+                Price.Create(price),
+                StockQuantity.Create(stockQuantity),
                 category,
-                ProductRegisterDate.Create(DateTime.Now),
-                ProductImageHash.Create(image),
-                ProductDimension.Create(height, width, depth));
+                RegisterDate.Create(DateTime.Now),
+                Image.CreateFromHash(image),
+                Dimension.Create(height, width, depth));
 
         public static Product CreateProduct(
             Guid id,
@@ -118,27 +118,27 @@ namespace NerdStore.Catalog.Domain.Entities
             new(
                 id == Guid.Empty ? throw new ArgumentException("Id is mandatory") : ProductId.CreateFrom(id),
                 Name.Create(name),
-                ProductDescription.Create(description),
+                Description.Create(description),
                 active,
-                ProductPrice.Create(price),
-                ProductStockQuantity.Create(stockQuantity),
+                Price.Create(price),
+                StockQuantity.Create(stockQuantity),
                 category,
-                ProductRegisterDate.Create(DateTime.Now),
-                ProductImageHash.Create(image),
-                ProductDimension.Create(height, width, depth));
+                RegisterDate.Create(DateTime.Now),
+                Image.CreateFromHash(image),
+                Dimension.Create(height, width, depth));
 
         public static Product Default =>
             new(
                 ProductId.Empty,
                 Name.Create(string.Empty),
-                ProductDescription.Create(string.Empty),
+                Description.Create(string.Empty),
                 false,
-                ProductPrice.Create(0),
-                ProductStockQuantity.Create(0),
+                Price.Create(0),
+                StockQuantity.Create(0),
                 Category.None,
-                ProductRegisterDate.Create(DateTime.MinValue),
-                ProductImageHash.Create(string.Empty),
-                ProductDimension.Create(0, 0, 0));
+                RegisterDate.Create(DateTime.MinValue),
+                Image.CreateFromHash(string.Empty),
+                Dimension.Create(0, 0, 0));
 
         public void Activate() => Active = true;
 
@@ -151,7 +151,7 @@ namespace NerdStore.Catalog.Domain.Entities
         }
 
         public void ChagneDescription(string description) =>
-            Description = ProductDescription.Create(description);
+            Description = Description.Create(description);
 
         public void DebitStock(int quantity)
         {
@@ -161,14 +161,14 @@ namespace NerdStore.Catalog.Domain.Entities
             if (!HasStock(quantity))
                 throw new DomainException("Insufficient stock.");
 
-            StockQuantity = ProductStockQuantity.Create(StockQuantity.Value - quantity);
+            StockQuantity = StockQuantity.Create(StockQuantity.Value - quantity);
         }
 
         public bool HasStock(int quantity) =>
             StockQuantity.Value >= quantity;
 
         public void ReplenishStock(int quantity) =>
-            StockQuantity = ProductStockQuantity.Create(StockQuantity.Value + quantity);
+            StockQuantity = StockQuantity.Create(StockQuantity.Value + quantity);
 
         public ValidationResult IsValid() =>
             _validator.Validate(this);

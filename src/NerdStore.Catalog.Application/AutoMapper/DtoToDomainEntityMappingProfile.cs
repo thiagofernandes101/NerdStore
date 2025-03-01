@@ -19,28 +19,28 @@ namespace NerdStore.Catalog.Application.AutoMapper
                     opt => opt.MapFrom(src => Domain.ValueObjects.Name.Create(src.Name.Value)))
                 .ForMember(
                     dest => dest.Description,
-                    opt => opt.MapFrom(src => Domain.ValueObjects.ProductDescription.Create(src.Description.Value)))
+                    opt => opt.MapFrom(src => Domain.ValueObjects.Description.Create(src.Description.Value)))
                 .ForMember(
                     dest => dest.Active,
                     opt => opt.MapFrom(src => src.Active))
                 .ForMember(
                     dest => dest.Price,
-                    opt => opt.MapFrom(src => Domain.ValueObjects.ProductPrice.Create(src.Price.Value)))
+                    opt => opt.MapFrom(src => Domain.ValueObjects.Price.Create(src.Price.Value)))
                 .ForMember(
                     dest => dest.CategoryId,
                     opt => opt.MapFrom(src => src.CategoryId.Value))
                 .ForMember(
                     dest => dest.RegisterDate,
-                    opt => opt.MapFrom(src => Domain.ValueObjects.ProductRegisterDate.Create(src.RegisterDate.Value)))
+                    opt => opt.MapFrom(src => Domain.ValueObjects.RegisterDate.Create(src.RegisterDate.Value)))
                 .ForMember(
                     dest => dest.Image,
-                    opt => opt.MapFrom(src => ProductImageHash.Create(src.Image.Value)))
+                    opt => opt.MapFrom(src => Image.CreateFromHash(src.Image.Value)))
                 .ForMember(
                     dest => dest.StockQuantity,
-                    opt => opt.MapFrom(src => Domain.ValueObjects.ProductStockQuantity.Create(src.StockQuantity.Value)))
+                    opt => opt.MapFrom(src => Domain.ValueObjects.StockQuantity.Create(src.StockQuantity.Value)))
                 .ForMember(
                     dest => dest.Dimension,
-                    opt => opt.MapFrom(src => ProductDimension.Create(src.Height.Value, src.Width.Value, src.Depth.Value)))
+                    opt => opt.MapFrom(src => Dimension.Create(src.Height.Value, src.Width.Value, src.Depth.Value)))
                 .ForMember(
                     dest => dest.Category,
                     opt => opt.MapFrom(src => Entity.Category.Create(src.Category.Name.Value, src.Category.Code.Value)));

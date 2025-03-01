@@ -2,11 +2,11 @@
 
 namespace NerdStore.Catalog.Domain.ValueObjects
 {
-    public record ProductPrice
+    public record Price
     {
         public decimal Value { get; }
-        private ProductPrice(decimal value) => Value = value;
-        public static ProductPrice Create(decimal value) => new(value);
+        private Price(decimal value) => Value = value;
+        public static Price Create(decimal value) => new(value);
         public override string ToString() => Value.ToString("C");
     }
 }

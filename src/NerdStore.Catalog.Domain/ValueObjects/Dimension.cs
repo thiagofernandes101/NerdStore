@@ -1,5 +1,4 @@
 ﻿using NerdStore.Catalog.Domain.Validations;
-using System.Text.Json.Serialization;
 
 namespace NerdStore.Catalog.Domain.ValueObjects
 {
@@ -16,7 +15,7 @@ namespace NerdStore.Catalog.Domain.ValueObjects
         public static Depth NewDepth(decimal value) => new(value);
     }
 
-    public class ProductDimension
+    public class Dimension
     {
         public Height Height { get; private set; }
         public Width Width { get; private set; }
@@ -24,16 +23,16 @@ namespace NerdStore.Catalog.Domain.ValueObjects
 
         private static readonly DimensionValidator _dimensionValidator = new();
 
-        private ProductDimension(Height height, Width width, Depth depth)
+        private Dimension(Height height, Width width, Depth depth)
         {
             Height = height;
             Width = width;
             Depth = depth;
         }
 
-        public static ProductDimension Create(decimal height, decimal width, decimal depth)
+        public static Dimension Create(decimal height, decimal width, decimal depth)
         {
-            var dimension = new ProductDimension(
+            var dimension = new Dimension(
                 Height.NewHeight(height),
                 Width.NewWidth(width),
                 Depth.NewDepth(depth)

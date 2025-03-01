@@ -2,11 +2,11 @@
 
 namespace NerdStore.Catalog.Domain.ValueObjects
 {
-    public record ProductStockQuantity
+    public record StockQuantity
     {
         public int Value { get; }
-        private ProductStockQuantity(int value) => Value = value;
-        public static ProductStockQuantity Create(int value) => new(value);
+        private StockQuantity(int value) => Value = value;
+        public static StockQuantity Create(int value) => new(value);
         public override string ToString() => Value.ToString();
     }
 }

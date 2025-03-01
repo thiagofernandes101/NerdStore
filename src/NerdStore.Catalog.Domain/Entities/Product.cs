@@ -19,7 +19,7 @@ namespace NerdStore.Catalog.Domain.Entities
     public class Product : Entity<ProductId>, IAggregateRoot
     {
         public CategoryId CategoryId { get; private set; }
-        public ProductName Name { get; private set; }
+        public Name Name { get; private set; }
         public ProductDescription Description { get; private set; }
         public bool Active { get; private set; }
         public ProductPrice Price { get; private set; }
@@ -36,7 +36,7 @@ namespace NerdStore.Catalog.Domain.Entities
 
         private Product(
             ProductId id,
-            ProductName name,
+            Name name,
             ProductDescription description,
             bool active,
             ProductPrice price,
@@ -70,7 +70,7 @@ namespace NerdStore.Catalog.Domain.Entities
             int depth) =>
             new(
                 ProductId.NewId,
-                ProductName.Create(name),
+                Name.Create(name),
                 ProductDescription.Create(description),
                 active,
                 ProductPrice.Create(price),
@@ -93,7 +93,7 @@ namespace NerdStore.Catalog.Domain.Entities
             int depth) =>
             new(
                 ProductId.NewId,
-                ProductName.Create(name),
+                Name.Create(name),
                 ProductDescription.Create(description),
                 active,
                 ProductPrice.Create(price),
@@ -117,7 +117,7 @@ namespace NerdStore.Catalog.Domain.Entities
             int depth) =>
             new(
                 id == Guid.Empty ? throw new ArgumentException("Id is mandatory") : ProductId.CreateFrom(id),
-                ProductName.Create(name),
+                Name.Create(name),
                 ProductDescription.Create(description),
                 active,
                 ProductPrice.Create(price),
@@ -130,7 +130,7 @@ namespace NerdStore.Catalog.Domain.Entities
         public static Product Default =>
             new(
                 ProductId.Empty,
-                ProductName.Create(string.Empty),
+                Name.Create(string.Empty),
                 ProductDescription.Create(string.Empty),
                 false,
                 ProductPrice.Create(0),

@@ -1,6 +1,5 @@
 ﻿using NerdStore.Catalog.Domain.ValueObjects;
 using NerdStore.Core.DomainObjects;
-using System.Text.Json.Serialization;
 
 namespace NerdStore.Catalog.Domain.Entities
 {
@@ -14,7 +13,7 @@ namespace NerdStore.Catalog.Domain.Entities
 
     public class Category : Entity<CategoryId>
     {
-        public CategoryName Name { get; private set; }
+        public Name Name { get; private set; }
         public CategoryCode Code { get; private set; }
 
         [Obsolete("EF Core relation only.")]
@@ -25,7 +24,7 @@ namespace NerdStore.Catalog.Domain.Entities
 
         private Category(
             CategoryId id,
-            CategoryName name,
+            Name name,
             CategoryCode code) : base(id)
         {
             Name = name;
@@ -33,13 +32,13 @@ namespace NerdStore.Catalog.Domain.Entities
         }
 
         public static Category Create(string name, int code) =>
-            new(CategoryId.NewId, CategoryName.Create(name), CategoryCode.Create(code));
+            new(CategoryId.NewId, Name.Create(name), CategoryCode.Create(code));
 
         public static Category None =>
-            new Category(CategoryId.NewId, CategoryName.Create("None"), CategoryCode.Create(0));
+            new Category(CategoryId.NewId, Name.Create("None"), CategoryCode.Create(0));
 
         public static Category Empty =>
-            new Category(CategoryId.Empty, CategoryName.Create(string.Empty), CategoryCode.Create(0));
+            new Category(CategoryId.Empty, Name.Create(string.Empty), CategoryCode.Create(0));
 
         public override string ToString() => $"{Name} - {Code}";
     }

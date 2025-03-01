@@ -2,12 +2,12 @@
 
 namespace NerdStore.Catalog.Domain.ValueObjects
 {
-    public record ProductName
+    public record Name
     {
         public string Value { get; }
 
-        private ProductName(string value) => Value = value;
-        public static ProductName Create(string value) => new(value);
+        private Name(string value) => Value = value;
+        public static Name Create(string value) => new(value);
         public override string ToString() => Value;
     }
 }

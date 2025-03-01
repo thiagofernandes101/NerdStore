@@ -16,7 +16,7 @@ namespace NerdStore.Catalog.Application.AutoMapper
                     opt => opt.MapFrom(src => Entity.ProductId.CreateFrom(src.Id.Value)))
                 .ForMember(
                     dest => dest.Name,
-                    opt => opt.MapFrom(src => Domain.ValueObjects.ProductName.Create(src.Name.Value)))
+                    opt => opt.MapFrom(src => Domain.ValueObjects.Name.Create(src.Name.Value)))
                 .ForMember(
                     dest => dest.Description,
                     opt => opt.MapFrom(src => Domain.ValueObjects.ProductDescription.Create(src.Description.Value)))
@@ -52,7 +52,7 @@ namespace NerdStore.Catalog.Application.AutoMapper
                     opt => opt.MapFrom(src => Entity.CategoryId.CreateFrom(src.Id.Value)))
                 .ForMember(
                     dest => dest.Name,
-                    opt => opt.MapFrom(src => Domain.ValueObjects.CategoryName.Create(src.Name.Value)))
+                    opt => opt.MapFrom(src => Domain.ValueObjects.Name.Create(src.Name.Value)))
                 .ForMember(
                     dest => dest.Code,
                     opt => opt.MapFrom(src => Domain.ValueObjects.CategoryCode.Create(src.Code.Value)))

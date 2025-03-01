@@ -3,6 +3,7 @@ using NerdStore.Catalog.Domain.Events;
 using NerdStore.Catalog.Domain.Repositories;
 using NerdStore.Catalog.Domain.Services;
 using NerdStore.Core.Bus;
+using NerdStore.Core.DomainObjects;
 using NSubstitute;
 
 namespace NerdStore.Catalog.Domain.Tests
@@ -25,7 +26,7 @@ namespace NerdStore.Catalog.Domain.Tests
         {
             // Arrange
             var productId = ProductId.NewId;
-            _productRepositoryMock.GetById(productId).Returns(null as Product);
+            _productRepositoryMock.GetById(productId).Returns(Result<Product>.Failure("Product not found."));
 
             // Act
             var result = await _stockService.DebitStock(productId, 1);
@@ -49,7 +50,7 @@ namespace NerdStore.Catalog.Domain.Tests
                 10,
                 10,
                 10);
-            _productRepositoryMock.GetById(Arg.Any<ProductId>()).Returns(product);
+            _productRepositoryMock.GetById(Arg.Any<ProductId>()).Returns(Result<Product>.Success(product));
 
             // Act
             var result = await _stockService.DebitStock(product.Id, 1);
@@ -74,7 +75,7 @@ namespace NerdStore.Catalog.Domain.Tests
                 10,
                 10);
 
-            _productRepositoryMock.GetById(product.Id).Returns(product);
+            _productRepositoryMock.GetById(product.Id).Returns(Result<Product>.Success(product));;
             _productRepositoryMock.UnitOfWork.Commit().Returns(true);
 
             // Act
@@ -101,7 +102,7 @@ namespace NerdStore.Catalog.Domain.Tests
                 10,
                 10, 10);
 
-            _productRepositoryMock.GetById(product.Id).Returns(product);
+            _productRepositoryMock.GetById(product.Id).Returns(Result<Product>.Success(product));
             _productRepositoryMock.UnitOfWork.Commit().Returns(true);
 
             // Act

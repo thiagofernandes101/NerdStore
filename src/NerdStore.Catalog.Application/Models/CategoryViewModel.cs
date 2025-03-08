@@ -2,9 +2,11 @@
 
 namespace NerdStore.Catalog.Application.Models
 {
-    public record CategoryModel
+    public record CategoryViewModel
     {
-        public CategoryModel(CategoryId id, CategoryName name, CategoryCode code)
+        private CategoryViewModel() { }
+        
+        public CategoryViewModel(CategoryId id, CategoryName name, CategoryCode code)
         {
             Id = id;
             Name = name;

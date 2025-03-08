@@ -4,13 +4,10 @@ namespace NerdStore.Catalog.Application.Models
 {
     public record ProductViewModel
     {
-        public ProductViewModel()
-        {
-            
-        }
+        private ProductViewModel() { }
+        
         public ProductViewModel(
             ProductId id,
-            ProductCategoryId categoryId,
             ProductName name,
             ProductDescription description,
             bool active,
@@ -21,11 +18,11 @@ namespace NerdStore.Catalog.Application.Models
             ProductHeight height,
             ProductWidth width,
             ProductDepth depth,
-            CategoryModel category
+            CategoryViewModel category
         )
         {
             Id = id;
-            CategoryId = categoryId;
+            CategoryId = category.Id;
             Name = name;
             Description = description;
             Active = active;
@@ -43,7 +40,7 @@ namespace NerdStore.Catalog.Application.Models
         public ProductId Id { get; init; }
 
         [Required(ErrorMessage = "The {0} field is required.")]
-        public ProductCategoryId CategoryId { get; init; }
+        public CategoryId CategoryId { get; init; }
 
         [Required(ErrorMessage = "The {0} field is required.")]
         public ProductName Name { get; init; }
@@ -79,11 +76,10 @@ namespace NerdStore.Catalog.Application.Models
         [Range(1, int.MaxValue, ErrorMessage = "The field {0} must have a minimum value of {1}")]
         public ProductDepth Depth { get; init; }
 
-        public CategoryModel Category { get; init; }
+        public CategoryViewModel Category { get; init; }
     }
 
     public record ProductId(Guid Value);
-    public record ProductCategoryId(Guid Value);
     public record ProductName(string Value);
     public record ProductDescription(string Value);
     public record ProductPrice(decimal Value);

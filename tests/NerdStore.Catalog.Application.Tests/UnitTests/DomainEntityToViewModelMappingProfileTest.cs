@@ -2,8 +2,6 @@
 using NerdStore.Catalog.Application.AutoMapper;
 using NerdStore.Catalog.Application.Models;
 using NerdStore.Catalog.Domain.Entities;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 
 namespace NerdStore.Catalog.Application.Tests.UnitTests
 {
@@ -55,6 +53,8 @@ namespace NerdStore.Catalog.Application.Tests.UnitTests
             Assert.Equal(product.Dimension.Height.Value, productDto.Height.Value);
             Assert.Equal(product.Dimension.Width.Value, productDto.Width.Value);
             Assert.Equal(product.Dimension.Depth.Value, productDto.Depth.Value);
+            Assert.Equal(product.Category.Name.Value, productDto.Category.Name.Value);
+            Assert.Equal(product.Category.Code.Value, productDto.Category.Code.Value);
         }
 
         [Fact]
@@ -100,12 +100,12 @@ namespace NerdStore.Catalog.Application.Tests.UnitTests
             // Arrange
             var category = Category.Create("Test Category", 0);
             // Act
-            var categoryDto = _mapper.Map<CategoryModel>(category);
+            var categoryViewModel = _mapper.Map<CategoryViewModel>(category);
             // Assert
-            Assert.NotNull(categoryDto);
-            Assert.Equal(category.Id.Value, categoryDto.Id.Value);
-            Assert.Equal(category.Name.Value, categoryDto.Name.Value);
-            Assert.Equal(category.Code.Value, categoryDto.Code.Value);
+            Assert.NotNull(categoryViewModel);
+            Assert.Equal(category.Id.Value, categoryViewModel.Id.Value);
+            Assert.Equal(category.Name.Value, categoryViewModel.Name.Value);
+            Assert.Equal(category.Code.Value, categoryViewModel.Code.Value);
         }
     }
 }

@@ -28,7 +28,7 @@ namespace NerdStore.Catalog.Domain.Entities
         public Dimension Dimension { get; private set; }
 
         [Obsolete("Parameterless constructor is for EF Core and mapping only.")]
-        public Product() { }
+        private Product() { }
 
         private Product(ProductId id, Name name, Description description, bool active, Price price, Stock stock, Category category, RegisterDate registerDate, Image image, Dimension dimension) : base(id)
         {

@@ -20,7 +20,7 @@ namespace NerdStore.Catalog.Domain.Entities
         public List<Product> Products { get; set; } = [];
 
         [Obsolete("Parameterless constructor is for EF Core and mapping only.")]
-        public Category() { }
+        private Category() { }
 
         private Category(
             CategoryId id,

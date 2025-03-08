@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Data.Common;
+using AutoMapper;
 using NerdStore.Catalog.Domain.Repositories;
 using NerdStore.Catalog.Domain.Services;
 using NerdStore.Catalog.Domain.ValueObjects;
@@ -38,8 +39,16 @@ namespace NerdStore.Catalog.Application.Services
         public async Task AddProduct(ApplicationModel.ProductViewModel productDto)
         {
             var mappedProduct = _mapper.Map<Entity.Product>(productDto);
-            await _productRepository.Add(mappedProduct);
-            await _productRepository.UnitOfWork.Commit();
+            var productValidationResult = mappedProduct.IsValid();
+            if (productValidationResult.IsValid)
+            {
+                await _productRepository.Add(mappedProduct);
+                await _productRepository.UnitOfWork.Commit();
+            }
+            else
+            {
+                throw new InvalidOperationException(productValidationResult.Errors.ToString());
+            }
         }
 
         public async Task<ApplicationModel.ProductViewModel> DebitStock(ApplicationModel.ProductId id, int quantity)
@@ -70,7 +79,12 @@ namespace NerdStore.Catalog.Application.Services
         {
             var mappedProductId = _mapper.Map<Entity.ProductId>(id);
             var product = await _productRepository.GetById(mappedProductId);
-            return _mapper.Map<ApplicationModel.ProductViewModel>(product);
+            if (product.IsSuccess)
+            {
+                var result = _mapper.Map<ApplicationModel.ProductViewModel>(product.Value);
+                return result;
+            }
+            throw new DomainException(product.Error);
         }
 
         public async Task<IEnumerable<ApplicationModel.ProductViewModel>> GetCategories()

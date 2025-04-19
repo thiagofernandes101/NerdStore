@@ -8,16 +8,16 @@ namespace NerdStore.Catalog.Application.Models
         
         public ProductViewModel(
             ProductId id,
-            ProductName name,
-            ProductDescription description,
+            Name name,
+            Description description,
             bool active,
-            ProductPrice price,
-            ProductRegisterDate registerDate,
-            ProductImage image,
-            ProductStockQuantity stockQuantity,
-            ProductHeight height,
-            ProductWidth width,
-            ProductDepth depth,
+            Price price,
+            RegisterDate registerDate,
+            Image image,
+            StockQuantity stockQuantity,
+            Height height,
+            Width width,
+            Depth depth,
             CategoryViewModel category
         )
         {
@@ -43,50 +43,50 @@ namespace NerdStore.Catalog.Application.Models
         public CategoryId CategoryId { get; init; }
 
         [Required(ErrorMessage = "The {0} field is required.")]
-        public ProductName Name { get; init; }
+        public Name Name { get; init; }
 
         [Required(ErrorMessage = "The {0} field is required.")]
-        public ProductDescription Description { get; init; }
+        public Description Description { get; init; }
 
         [Required(ErrorMessage = "The {0} field is required.")]
         public bool Active { get; init; }
 
         [Required(ErrorMessage = "The {0} field is required.")]
-        public ProductPrice Price { get; init; }
+        public Price Price { get; init; }
 
         [Required(ErrorMessage = "The {0} field is required.")]
-        public ProductRegisterDate RegisterDate { get; init; }
+        public RegisterDate RegisterDate { get; init; }
 
         [Required(ErrorMessage = "The {0} field is required.")]
-        public ProductImage Image { get; init; }
-
-        [Required(ErrorMessage = "The {0} field is required.")]
-        [Range(1, int.MaxValue, ErrorMessage = "The field {0} must have a minimum value of {1}")]
-        public ProductStockQuantity StockQuantity { get; init; }
+        public Image Image { get; init; }
 
         [Required(ErrorMessage = "The {0} field is required.")]
         [Range(1, int.MaxValue, ErrorMessage = "The field {0} must have a minimum value of {1}")]
-        public ProductHeight Height { get; init; }
+        public StockQuantity StockQuantity { get; init; }
 
         [Required(ErrorMessage = "The {0} field is required.")]
         [Range(1, int.MaxValue, ErrorMessage = "The field {0} must have a minimum value of {1}")]
-        public ProductWidth Width { get; init; }
+        public Height Height { get; init; }
 
         [Required(ErrorMessage = "The {0} field is required.")]
         [Range(1, int.MaxValue, ErrorMessage = "The field {0} must have a minimum value of {1}")]
-        public ProductDepth Depth { get; init; }
+        public Width Width { get; init; }
+
+        [Required(ErrorMessage = "The {0} field is required.")]
+        [Range(1, int.MaxValue, ErrorMessage = "The field {0} must have a minimum value of {1}")]
+        public Depth Depth { get; init; }
 
         public CategoryViewModel Category { get; init; }
     }
 
     public record ProductId(Guid Value);
-    public record ProductName(string Value);
-    public record ProductDescription(string Value);
-    public record ProductPrice(decimal Value);
-    public record ProductRegisterDate(DateTime Value);
-    public record ProductImage(string Value);
-    public record ProductStockQuantity(int Value);
-    public record ProductHeight(int Value);
-    public record ProductWidth(int Value);
-    public record ProductDepth(int Value);
+    public record Name(string Value);
+    public record Description(string Value);
+    public record Price(decimal Value);
+    public record RegisterDate(DateTime Value);
+    public record Image(string Value);
+    public record StockQuantity(int Value);
+    public record Height(int Value);
+    public record Width(int Value);
+    public record Depth(int Value);
 }

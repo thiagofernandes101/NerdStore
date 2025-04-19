@@ -15,7 +15,7 @@ namespace NerdStore.Catalog.Application.AutoMapper
             CreateMap<ApplicationModel.CategoryId, DomainEntity.CategoryId>()
                 .ConstructUsing(src => DomainEntity.CategoryId.CreateFrom(src.Value));
 
-            CreateMap<ApplicationModel.ProductName, DomainValueObject.Name>()
+            CreateMap<ApplicationModel.Name, DomainValueObject.Name>()
                 .ConstructUsing(src => DomainValueObject.Name.Create(src.Value));
 
             CreateMap<ApplicationModel.CategoryCode, DomainValueObject.CategoryCode>()

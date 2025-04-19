@@ -19,11 +19,11 @@ namespace NerdStore.Catalog.Application.AutoMapper
                 )
                 .ForMember(
                     dest => dest.Name,
-                    opt => opt.MapFrom(src => new ApplicationModel.ProductName(src.Name.Value))
+                    opt => opt.MapFrom(src => new ApplicationModel.Name(src.Name.Value))
                 )
                 .ForMember(
                     dest => dest.Description,
-                    opt => opt.MapFrom(src => new ApplicationModel.ProductDescription(src.Description.Value))
+                    opt => opt.MapFrom(src => new ApplicationModel.Description(src.Description.Value))
                 )
                 .ForMember(
                     dest => dest.Active,
@@ -31,31 +31,31 @@ namespace NerdStore.Catalog.Application.AutoMapper
                 )
                 .ForMember(
                     dest => dest.Price,
-                    opt => opt.MapFrom(src => new ApplicationModel.ProductPrice(src.Price.Value))
+                    opt => opt.MapFrom(src => new ApplicationModel.Price(src.Price.Value))
                 )
                 .ForMember(
                     dest => dest.RegisterDate,
-                    opt => opt.MapFrom(src => new ApplicationModel.ProductRegisterDate(src.RegisterDate.Value))
+                    opt => opt.MapFrom(src => new ApplicationModel.RegisterDate(src.RegisterDate.Value))
                 )
                 .ForMember(
                     dest => dest.Image,
-                    opt => opt.MapFrom(src => new ApplicationModel.ProductImage(src.Image.Value))
+                    opt => opt.MapFrom(src => new ApplicationModel.Image(src.Image.Value))
                 )
                 .ForMember(
                     dest => dest.StockQuantity,
-                    opt => opt.MapFrom(src => new ApplicationModel.ProductStockQuantity(src.Stock.Amount))
+                    opt => opt.MapFrom(src => new ApplicationModel.StockQuantity(src.Stock.Amount))
                 )
                 .ForMember(
                     dest => dest.Height,
-                    opt => opt.MapFrom(src => new ApplicationModel.ProductHeight((int)src.Dimension.Height.Value))
+                    opt => opt.MapFrom(src => new ApplicationModel.Height((int)src.Dimension.Height.Value))
                 )
                 .ForMember(
                     dest => dest.Width,
-                    opt => opt.MapFrom(src => new ApplicationModel.ProductWidth((int)src.Dimension.Width.Value))
+                    opt => opt.MapFrom(src => new ApplicationModel.Width((int)src.Dimension.Width.Value))
                 )
                 .ForMember(
                     dest => dest.Depth,
-                    opt => opt.MapFrom(src => new ApplicationModel.ProductDepth((int)src.Dimension.Depth.Value))
+                    opt => opt.MapFrom(src => new ApplicationModel.Depth((int)src.Dimension.Depth.Value))
                 )
                 .ForMember(
                     dest => dest.Category,

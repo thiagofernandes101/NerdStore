@@ -41,16 +41,16 @@ namespace NerdStore.Catalog.Application.Tests.IntegrationTests
             var product = new Application.Models.ProductViewModel
             (
                 new Application.Models.ProductId(Guid.NewGuid()),
-                new Application.Models.ProductName("Product 1"),
-                new Application.Models.ProductDescription("Description"),
+                new Application.Models.Name("Product 1"),
+                new Application.Models.Description("Description"),
                 true,
-                new Application.Models.ProductPrice(100),
-                new Application.Models.ProductRegisterDate(DateTime.Now),
-                new Application.Models.ProductImage("image.png"),
-                new Application.Models.ProductStockQuantity(10),
-                new Application.Models.ProductHeight(10),
-                new Application.Models.ProductWidth(10),
-                new Application.Models.ProductDepth(10),
+                new Application.Models.Price(100),
+                new Application.Models.RegisterDate(DateTime.Now),
+                new Application.Models.Image("image.png"),
+                new Application.Models.StockQuantity(10),
+                new Application.Models.Height(10),
+                new Application.Models.Width(10),
+                new Application.Models.Depth(10),
                 new Application.Models.CategoryViewModel
                 (
                     new Application.Models.CategoryId(Guid.NewGuid()),
